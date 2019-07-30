@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
+
 import App from './App';
 import Login from './log-in/Login';
 import SignUp from './sign-up/SignUp';
 import HomePage from './homepage/Homepage';
+import Error404 from './errors/error404';
+import Pricing from './homepage/Pricing';
 
 const routing = (
     <Router>
@@ -15,6 +18,8 @@ const routing = (
             <Route path="/login" component={Login} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/home" component={HomePage} />
+            <Route path="/pricing" component={Pricing} />
+            <Route path="/error404" component={Error404} />
         </div>
     </Router>
 )

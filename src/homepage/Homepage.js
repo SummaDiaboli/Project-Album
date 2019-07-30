@@ -16,6 +16,7 @@ import {
     Sidebar,
     Visibility,
 } from 'semantic-ui-react'
+import "./Homepage.css"
 
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
@@ -47,7 +48,7 @@ const HomepageHeading = ({ mobile }) => (
             }}
         />
         <Link to="/sign-up">
-            <Button primary size='huge'>
+            <Button primary color="google plus" size='huge'>
                 Get Started
                 <Icon name='right arrow' />
             </Button>
@@ -97,7 +98,7 @@ class DesktopContainer extends Component {
                                     <Link to='/home'>Home</Link>
                                 </Menu.Item>
                                 <Menu.Item as="a">
-                                    Pricing
+                                    <Link to='/pricing'>Pricing</Link>
                                 </Menu.Item>
                                 <Menu.Item position="right">
                                     <Link to='/login'><Button inverted={!fixed}>
@@ -153,9 +154,11 @@ class MobileContainer extends Component {
                             Home
                         </Menu.Item>
                     </Link>
-                    <Menu.Item as="a">
-                        Pricing
-                    </Menu.Item>
+                    <Link to="/pricing">
+                        <Menu.Item>
+                            Pricing
+                        </Menu.Item>
+                    </Link>
                     <Link to='/login' >
                         <Menu.Item>Log in</Menu.Item>
                     </Link>
@@ -220,6 +223,7 @@ export class Homepage extends Component {
 
     render() {
         document.title = "Home"
+
         return (
             <ResponsiveContainer>
                 <Segment style={{ padding: '8em 0em' }} vertical>
@@ -238,8 +242,8 @@ export class Homepage extends Component {
                                     We Store Your Memories on the Internet
                                 </Header>
                                 <p style={{ fontSize: '1.33em' }}>
-                                    Yes that's right, you thought it was the stuff of dreams,
-                                    but your grandma can now share your baby picture with whomever
+                                    Yes, that's right, you thought it was the stuff of dreams,
+                                    but your grandma can now share your baby pictures with whomever
                                     she wants
                                 </p>
                             </Grid.Column>
@@ -249,7 +253,9 @@ export class Homepage extends Component {
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column textAlign='center'>
-                                <Button size='huge'>Check it out</Button>
+                                <Link to="/error404">
+                                    <Button size='huge'>Check it out</Button>
+                                </Link>
                             </Grid.Column>
                         </Grid.Row>
                     </Grid>
@@ -285,13 +291,15 @@ export class Homepage extends Component {
                             Preserve intimacy
                         </Header>
                         <p style={{ fontSize: '1.33em' }}>
-                            We have learned about the impact picture have on relationships.
+                            We have learned about the impact pictures have on relationships.
                             The memories we make deserve to last forever, ready for us to retrieve
                             whenever we need them.
                         </p>
-                        <Button as="a" size="large">
-                            Read More
-                        </Button>
+                        <Link to="/error404/">
+                            <Button size="large">
+                                Read More
+                            </Button>
+                        </Link>
 
                         <Divider
                             as="h4"
@@ -299,8 +307,9 @@ export class Homepage extends Component {
                             horizontal
                             style={{ margin: '3em 0em', textTransform: 'uppercase' }}
                         >
-                            {/*  eslint-disable-next-line */}
-                            <a href="#">Sample Albums</a>
+                            <Link to="/error404/">
+                                Sample Albums
+                            </Link>
                         </Divider>
 
                         <Header as='h3' style={{ fontSize: '2em' }}>
@@ -308,11 +317,13 @@ export class Homepage extends Component {
                         </Header>
                         <p style={{ fontSize: '1.33em' }}>
                             It took a lot of effort, but you can customize your albums
-                            from the picture sizes shapes to the frame itself
+                            from the picture sizes to the shapes to the frames
                         </p>
-                        <Button as='a' size='large'>
-                            I'm Still Quite Interested
-                        </Button>
+                        <Link to="/error404/">
+                            <Button size='large'>
+                                I'm Still Quite Interested
+                            </Button>
+                        </Link>
                     </Container>
                 </Segment>
 
@@ -323,7 +334,7 @@ export class Homepage extends Component {
                                 <Grid.Column width={3}>
                                     <Header inverted as='h4' content='About' />
                                     <List link inverted>
-                                        <List.Item as='a'>Pricing</List.Item>
+                                        <Link className="subnav_link" to="/pricing">Pricing</Link>
                                         <List.Item as='a'>Contact Us</List.Item>
                                         <List.Item as='a'>Terms and Conditions</List.Item>
                                         <List.Item as='a'>Privacy Statement</List.Item>

@@ -5,18 +5,6 @@ import "./Login.css"
 
 export class Login extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            redirect: false
-        };
-    }
-
-
-    handleOnClick = () => {
-        this.setState({ redirect: true });
-    }
-
     render() {
         document.title = "Login"
 
