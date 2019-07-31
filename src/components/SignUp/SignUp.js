@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link } from "react-router-dom"
+import * as ROUTES from '../../constants/routes';
+
 
 export class SignUp extends Component {
     render() {
@@ -22,7 +24,7 @@ export class SignUp extends Component {
                         }}
                     >
                         <Header as="h2" style={{ color: "black" }} textAlign="center">
-                            <Image src={require('../assets/images/album-icon.png')} circular />
+                            <Image src={require('../../assets/images/album-icon.png')} circular />
                             Sign Up to Project Album
                         </Header>
                         <Form size="large">
@@ -37,7 +39,7 @@ export class SignUp extends Component {
                                 <Form.Input fluid icon='lock' iconPosition="left" placeholder="Password" type="password" />
                                 <Form.Input fluid icon='lock' iconPosition='left' placeholder="Confirm Password" type="password" />
 
-                                <Link to="/account" style={{ color: "black" }}>
+                                <Link to={ROUTES.ACCOUNT} style={{ color: "black" }}>
                                     <Button color="green" fluid size="large" /* onClick={this.handleOnClick} */>
                                         Sign up
                                     </Button>
@@ -45,7 +47,7 @@ export class SignUp extends Component {
                             </Segment>
                         </Form>
                         <Message>
-                            Already have an account? <Link to="/login">Log in</Link>
+                            Already have an account? <Link to={ROUTES.SIGN_IN}>Log in</Link>
                         </Message>
                     </Grid.Column>
                 </Grid>

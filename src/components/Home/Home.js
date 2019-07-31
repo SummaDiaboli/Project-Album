@@ -16,7 +16,10 @@ import {
     Sidebar,
     Visibility,
 } from 'semantic-ui-react'
-import "./Homepage.css"
+import "./Home.css"
+
+import * as ROUTES from '../../constants/routes';
+
 
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
@@ -47,7 +50,7 @@ const HomepageHeading = ({ mobile }) => (
                 marginTop: mobile ? '0.5em' : '0em',
             }}
         />
-        <Link to="/sign-up">
+        <Link to={ROUTES.SIGN_UP}>
             <Button primary /* color="orange"  */ style={{ backgroundColor: "#00a226" }} size='huge'>
                 Get Started
                 <Icon name='right arrow' />
@@ -95,17 +98,17 @@ class DesktopContainer extends Component {
                         >
                             <Container>
                                 <Menu.Item active>
-                                    <Link to='/home'>Home</Link>
+                                    <Link to={ROUTES.HOME}>Home</Link>
                                 </Menu.Item>
                                 <Menu.Item>
-                                    <Link to='/pricing'>Pricing</Link>
+                                    <Link to={ROUTES.PRICING}>Pricing</Link>
                                 </Menu.Item>
                                 <Menu.Item position="right">
-                                    <Link to='/login'><Button inverted={!fixed}>
+                                    <Link to={ROUTES.SIGN_IN}><Button inverted={!fixed}>
                                         Log in
                                     </Button>
                                     </Link>
-                                    <Link to='/sign-up'>
+                                    <Link to={ROUTES.SIGN_UP}>
                                         <Button inverted={!fixed} /* primary={!fixed} */ style={{ marginLeft: '0.5em' }}>
                                             Sign up
                                         </Button>
@@ -149,20 +152,20 @@ class MobileContainer extends Component {
                     vertical
                     visible={sidebarOpened}
                 >
-                    <Link to="/home">
+                    <Link to={ROUTES.HOME}>
                         <Menu.Item active>
                             Home
                         </Menu.Item>
                     </Link>
-                    <Link to="/pricing">
+                    <Link to={ROUTES.PRICING}>
                         <Menu.Item>
                             Pricing
                         </Menu.Item>
                     </Link>
-                    <Link to='/login' >
+                    <Link to={ROUTES.SIGN_IN} >
                         <Menu.Item>Log in</Menu.Item>
                     </Link>
-                    <Link to='/sign-up'>
+                    <Link to={ROUTES.SIGN_UP}>
                         <Menu.Item>Sign in</Menu.Item>
                     </Link>
                 </Sidebar>
@@ -180,13 +183,13 @@ class MobileContainer extends Component {
                                     <Icon fitted name="sidebar" size="large" />
                                 </Menu.Item>
                                 <Menu.Item position='right'>
-                                    <Link to="/login">
+                                    <Link to={ROUTES.SIGN_IN}>
                                         <Button inverted>
                                             Log in
                                         </Button>
                                     </Link>
 
-                                    <Link to="/sign-up">
+                                    <Link to={ROUTES.SIGN_UP}>
                                         <Button inverted style={{ marginLeft: '0.5em' }}>
                                             Sign up
                                         </Button>
@@ -219,7 +222,7 @@ ResponsiveContainer.propTypes = {
     children: PropTypes.node,
 }
 
-export class Homepage extends Component {
+export class Home extends Component {
 
     render() {
         document.title = "Home"
@@ -248,12 +251,12 @@ export class Homepage extends Component {
                                 </p>
                             </Grid.Column>
                             <Grid.Column floated="right" width={6}>
-                                <Image bordered rounded size='large' src={require('../assets/images/album.jpeg')} />
+                                <Image bordered rounded size='large' src={require('../../assets/images/album.jpeg')} />
                             </Grid.Column>
                         </Grid.Row>
                         <Grid.Row>
                             <Grid.Column textAlign='center'>
-                                <Link to="/error404">
+                                <Link to={ROUTES.ERROR404}>
                                     <Button size='huge'>Check it out</Button>
                                 </Link>
                             </Grid.Column>
@@ -277,7 +280,7 @@ export class Homepage extends Component {
                                     "I should move all my pictures from Google Drive"
                                 </Header>
                                 <p style={{ fontSize: '1.33em' }}>
-                                    <Image avatar src={require('../assets/images/avatar.png')} />
+                                    <Image avatar src={require('../../assets/images/avatar.png')} />
                                     <b>Nan</b> Chief Grandchild Embarasser
                                 </p>
                             </Grid.Column>
@@ -334,7 +337,7 @@ export class Homepage extends Component {
                                 <Grid.Column width={3}>
                                     <Header inverted as='h4' content='About' />
                                     <List link inverted>
-                                        <Link className="subnav_link" to="/pricing">Pricing</Link>
+                                        <Link className="subnav_link" to={ROUTES.PRICING}>Pricing</Link>
                                         <List.Item as='a'>Contact Us</List.Item>
                                         <List.Item as='a'>Terms of Service</List.Item>
                                         <List.Item as='a'>Privacy Policy</List.Item>
@@ -358,4 +361,4 @@ export class Homepage extends Component {
     }
 }
 
-export default Homepage
+export default Home

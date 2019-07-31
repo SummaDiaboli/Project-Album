@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Grid, Icon, Segment, Button, Container } from 'semantic-ui-react'
-import Emoji from "../supplementary/Emoji"
 import { Link } from "react-router-dom";
+import * as ROUTES from '../../constants/routes';
+import Emoji from "../../supplementary/Emoji"
+
 
 class Error404 extends Component {
     render() {
@@ -39,7 +41,7 @@ class Error404 extends Component {
                                 <Emoji symbol=" 👨‍💻" />
                             </p>
                             <Container style={{ paddingTop: "30px" }}>
-                                <Link to="/home">
+                                <Link to={ROUTES.HOME}>
                                     <Button inverted size="big">Return to Home</Button>
                                 </Link>
                             </Container>

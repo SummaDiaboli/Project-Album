@@ -5,6 +5,8 @@ import {
     Header,
 } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
+import * as ROUTES from '../../../constants/routes';
+
 
 class FeaturesSection extends Component {
     render() {
@@ -71,7 +73,7 @@ class FeaturesSection extends Component {
                     </Grid.Row>
 
                     <Grid.Row centered>
-                        <Link to="/error404">
+                        <Link to={ROUTES.ERROR404}>
                             <Button color="green" >EXPLORE ALL FEATURES</Button>
                         </Link>
                     </Grid.Row>

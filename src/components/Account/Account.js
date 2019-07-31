@@ -17,6 +17,8 @@ import {
 } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
+import * as ROUTES from '../../constants/routes';
+
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
 
@@ -55,26 +57,26 @@ class DesktopContainer extends Component {
                         >
                             <Container>
                                 <Menu.Item>
-                                    <Link to='/home'>Home</Link>
+                                    <Link to={ROUTES.HOME}>Home</Link>
                                 </Menu.Item>
                                 <Menu.Item>
-                                    <Link to='/pricing'>Pricing</Link>
+                                    <Link to={ROUTES.PRICING}>Pricing</Link>
                                 </Menu.Item>
                                 <Menu.Item active>
-                                    <Link to='/account'>Account</Link>
+                                    <Link to={ROUTES.ACCOUNT}>Account</Link>
                                 </Menu.Item>
                                 <Menu.Item position="right">
-                                    <Link to="/error404">
+                                    <Link to={ROUTES.ERROR404}>
                                         <Button icon="user" inverted content="SummaDiaboli" circular />
                                     </Link>
-                                    <Link to="/error404">
+                                    <Link to={ROUTES.ERROR404}>
                                         <Button icon="setting" inverted circular />
                                     </Link>
-                                    {/* <Link to='/login'><Button inverted={!fixed}>
+                                    {/* <Link to='/signin'><Button inverted={!fixed}>
                                         Log in
                                     </Button>
                                     </Link>
-                                    <Link to='/sign-up'>
+                                    <Link to='/signup'>
                                         <Button
                                             inverted={!fixed}
                                             // primary={!fixed}
@@ -121,25 +123,25 @@ class MobileContainer extends Component {
                     vertical
                     visible={sidebarOpened}
                 >
-                    <Link to="/home">
+                    <Link to={ROUTES.HOME}>
                         <Menu.Item>
                             Home
                         </Menu.Item>
                     </Link>
-                    <Link to="/pricing">
+                    <Link to={ROUTES.PRICING}>
                         <Menu.Item>
                             Pricing
                         </Menu.Item>
                     </Link>
-                    <Link to="/account">
+                    <Link to={ROUTES.ACCOUNT}>
                         <Menu.Item active>
                             Account
                         </Menu.Item>
                     </Link>
-                    <Link to='/login' >
+                    <Link to={ROUTES.SIGN_IN} >
                         <Menu.Item>Sign out</Menu.Item>
                     </Link>
-                    {/* <Link to='/sign-up'>
+                    {/* <Link to='/signup'>
                         <Menu.Item>Sign in</Menu.Item>
                     </Link> */}
                 </Sidebar>
@@ -157,19 +159,19 @@ class MobileContainer extends Component {
                                     <Icon fitted name="sidebar" size="large" />
                                 </Menu.Item>
                                 <Menu.Item position='right'>
-                                    <Link to="/error404">
+                                    <Link to={ROUTES.ERROR404}>
                                         <Button icon="user" inverted content="SummaDiaboli" circular />
                                     </Link>
-                                    <Link to="/error404">
+                                    <Link to={ROUTES.ERROR404}>
                                         <Button icon="setting" inverted circular />
                                     </Link>
-                                    {/* <Link to="/login">
+                                    {/* <Link to="/signin">
                                         <Button inverted>
                                             Log in
                                         </Button>
                                     </Link>
 
-                                    <Link to="/sign-up">
+                                    <Link to="/signup">
                                         <Button inverted style={{ marginLeft: '0.5em' }}>
                                             Sign up
                                         </Button>
@@ -342,7 +344,7 @@ class Account extends Component {
                                     <Grid.Column width={3}>
                                         <Header inverted as='h4' content='About' />
                                         <List link inverted>
-                                            <Link className="subnav_link" to="/pricing">Pricing</Link>
+                                            <Link className="subnav_link" to={ROUTES.PRICING}>Pricing</Link>
                                             <List.Item as='a'>Contact Us</List.Item>
                                             <List.Item as='a'>Terms of Service</List.Item>
                                             <List.Item as='a'>Privacy Policy</List.Item>

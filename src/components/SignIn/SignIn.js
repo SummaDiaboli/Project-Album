@@ -1,12 +1,14 @@
 import React from "react"
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link } from "react-router-dom"
-import "./Login.css"
+import * as ROUTES from '../../constants/routes';
 
-export class Login extends React.Component {
+import "./SignIn.css"
+
+export class SignIn extends React.Component {
 
     render() {
-        document.title = "Login"
+        document.title = "Sign in"
 
         return (
             <div>
@@ -27,7 +29,7 @@ export class Login extends React.Component {
                         width="16"
                     >
                         <Header as="h2" /* color="black" */ style={{ color: "black" }} textAlign="center">
-                            <Image src={require('../assets/images/album-icon.png')} circular />
+                            <Image src={require('../../assets/images/album-icon.png')} circular />
                             Log in to your account
                         </Header>
                         <Form size="large">
@@ -35,7 +37,7 @@ export class Login extends React.Component {
                                 <Form.Input fluid icon="user" iconPosition="left" placeholder="E-mail Address" />
                                 <Form.Input fluid icon='lock' iconPosition="left" placeholder="Password" type="password" />
 
-                                <Link to="/account" style={{ color: "white" }}>
+                                <Link to={ROUTES.ACCOUNT} style={{ color: "white" }}>
                                     <Button color="green" fluid size="large" /* onClick={this.handleOnClick} */>
                                         Login
                                     </Button>
@@ -43,7 +45,7 @@ export class Login extends React.Component {
                             </Segment>
                         </Form>
                         <Message>
-                            New to us? <Link to="/sign-up">Sign up</Link>
+                            New to us? <Link to={ROUTES.SIGN_UP}>Sign up</Link>
                         </Message>
                     </Grid.Column>
                 </Grid>
@@ -53,4 +55,4 @@ export class Login extends React.Component {
     }
 }
 
-export default Login
+export default SignIn

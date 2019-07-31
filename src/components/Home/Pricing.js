@@ -19,6 +19,9 @@ import FeaturesSection from './PricingSections/FeaturesSection'
 import PricingSection from './PricingSections/PricingSection'
 import FAQSection from './PricingSections/FAQSection';
 
+import * as ROUTES from '../../constants/routes';
+
+
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
 
@@ -57,17 +60,17 @@ class DesktopContainer extends Component {
                         >
                             <Container>
                                 <Menu.Item>
-                                    <Link to='/home'>Home</Link>
+                                    <Link to={ROUTES.HOME}>Home</Link>
                                 </Menu.Item>
                                 <Menu.Item active>
-                                    <Link to='/pricing'>Pricing</Link>
+                                    <Link to={ROUTES.PRICING}>Pricing</Link>
                                 </Menu.Item>
                                 <Menu.Item position="right">
-                                    <Link to='/login'><Button inverted={!fixed}>
+                                    <Link to={ROUTES.SIGN_IN}><Button inverted={!fixed}>
                                         Log in
                                     </Button>
                                     </Link>
-                                    <Link to='/sign-up'>
+                                    <Link to={ROUTES.SIGN_UP}>
                                         <Button
                                             inverted={!fixed}
                                             // primary={!fixed}
@@ -114,20 +117,20 @@ class MobileContainer extends Component {
                     vertical
                     visible={sidebarOpened}
                 >
-                    <Link to="/home">
+                    <Link to={ROUTES.HOME}>
                         <Menu.Item>
                             Home
                         </Menu.Item>
                     </Link>
-                    <Link to="/pricing">
+                    <Link to={ROUTES.PRICING}>
                         <Menu.Item active>
                             Pricing
                         </Menu.Item>
                     </Link>
-                    <Link to='/login' >
+                    <Link to={ROUTES.SIGN_IN} >
                         <Menu.Item>Log in</Menu.Item>
                     </Link>
-                    <Link to='/sign-up'>
+                    <Link to={ROUTES.SIGN_UP}>
                         <Menu.Item>Sign in</Menu.Item>
                     </Link>
                 </Sidebar>
@@ -145,13 +148,13 @@ class MobileContainer extends Component {
                                     <Icon fitted name="sidebar" size="large" />
                                 </Menu.Item>
                                 <Menu.Item position='right'>
-                                    <Link to="/login">
+                                    <Link to={ROUTES.SIGN_IN}>
                                         <Button inverted>
                                             Log in
                                         </Button>
                                     </Link>
 
-                                    <Link to="/sign-up">
+                                    <Link to={ROUTES.SIGN_UP}>
                                         <Button inverted style={{ marginLeft: '0.5em' }}>
                                             Sign up
                                         </Button>
@@ -220,7 +223,7 @@ class Pricing extends Component {
                                     <Grid.Column width={3}>
                                         <Header inverted as='h4' content='About' />
                                         <List link inverted>
-                                            <Link className="subnav_link" to="/pricing">Pricing</Link>
+                                            <Link className="subnav_link" to={ROUTES.PRICING}>Pricing</Link>
                                             <List.Item as='a'>Contact Us</List.Item>
                                             <List.Item as='a'>Terms of Service</List.Item>
                                             <List.Item as='a'>Privacy Policy</List.Item>
