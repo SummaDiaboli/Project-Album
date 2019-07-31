@@ -15,6 +15,7 @@ import {
     Card,
     Image
 } from 'semantic-ui-react'
+import SignOutButton from '../SignOut';
 import { Link } from 'react-router-dom'
 
 import * as ROUTES from '../../constants/routes';
@@ -69,9 +70,8 @@ class DesktopContainer extends Component {
                                     <Link to={ROUTES.ERROR404}>
                                         <Button icon="user" inverted content="SummaDiaboli" circular />
                                     </Link>
-                                    <Link to={ROUTES.ERROR404}>
-                                        <Button icon="setting" inverted circular />
-                                    </Link>
+                                    <SignOutButton />
+                                    {/* <Button  inverted circular content="Sign Out" /> */}
                                     {/* <Link to='/signin'><Button inverted={!fixed}>
                                         Log in
                                     </Button>
@@ -357,7 +357,7 @@ class Account extends Component {
                                         <p>
                                             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                             Nullam a hendrerit tortor. Vestibulum ornare finibus felis vel dignissim.
-                                    </p>
+                                        </p>
                                     </Grid.Column>
                                 </Grid.Row>
                             </Grid>

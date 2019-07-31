@@ -20,7 +20,6 @@ import "./Home.css"
 
 import * as ROUTES from '../../constants/routes';
 
-
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
 
@@ -225,7 +224,6 @@ ResponsiveContainer.propTypes = {
 export class Home extends Component {
 
     render() {
-        document.title = "Home"
 
         return (
             <ResponsiveContainer>
