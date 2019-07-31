@@ -9,11 +9,15 @@ import {
     Button,
     Icon,
     Sidebar,
-    Divider
+    Divider,
+    Grid,
+    Header,
+    List
 } from 'semantic-ui-react'
 import { Link } from "react-router-dom"
 import FeaturesSection from './PricingSections/FeaturesSection'
 import PricingSection from './PricingSections/PricingSection'
+import FAQSection from './PricingSections/FAQSection';
 
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
@@ -66,7 +70,7 @@ class DesktopContainer extends Component {
                                     <Link to='/sign-up'>
                                         <Button
                                             inverted={!fixed}
-                                            primary={!fixed}
+                                            // primary={!fixed}
                                             style={{ marginLeft: '0.5em' }}
                                         >
                                             Sign up
@@ -194,7 +198,7 @@ class Pricing extends Component {
         return (
             <div>
                 <ResponsiveContainer>
-                    <Segment style={{ padding: '1vh 8vw' }} vertical>
+                    <Segment /* style={{ padding: '1vh 8vw' }} */ vertical>
                         <Segment style={{ padding: '3em 2em' }}>
                             <PricingSection />
 
@@ -202,7 +206,38 @@ class Pricing extends Component {
 
                             <FeaturesSection />
 
+                            <Divider section />
+
+                            <FAQSection />
+
                         </Segment>
+                    </Segment>
+
+                    <Segment inverted vertical style={{ padding: '5em 0em' }}>
+                        <Container>
+                            <Grid divided inverted stackable>
+                                <Grid.Row>
+                                    <Grid.Column width={3}>
+                                        <Header inverted as='h4' content='About' />
+                                        <List link inverted>
+                                            <Link className="subnav_link" to="/pricing">Pricing</Link>
+                                            <List.Item as='a'>Contact Us</List.Item>
+                                            <List.Item as='a'>Terms of Service</List.Item>
+                                            <List.Item as='a'>Privacy Policy</List.Item>
+                                        </List>
+                                    </Grid.Column>
+                                    <Grid.Column width={7}>
+                                        <Header as='h4' inverted>
+                                            Ipsum
+                                    </Header>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Nullam a hendrerit tortor. Vestibulum ornare finibus felis vel dignissim.
+                                    </p>
+                                    </Grid.Column>
+                                </Grid.Row>
+                            </Grid>
+                        </Container>
                     </Segment>
                 </ResponsiveContainer>
             </div >

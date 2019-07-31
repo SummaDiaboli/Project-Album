@@ -48,7 +48,7 @@ const HomepageHeading = ({ mobile }) => (
             }}
         />
         <Link to="/sign-up">
-            <Button primary color="google plus" size='huge'>
+            <Button primary /* color="orange"  */ style={{ backgroundColor: "#00a226" }} size='huge'>
                 Get Started
                 <Icon name='right arrow' />
             </Button>
@@ -97,7 +97,7 @@ class DesktopContainer extends Component {
                                 <Menu.Item active>
                                     <Link to='/home'>Home</Link>
                                 </Menu.Item>
-                                <Menu.Item as="a">
+                                <Menu.Item>
                                     <Link to='/pricing'>Pricing</Link>
                                 </Menu.Item>
                                 <Menu.Item position="right">
@@ -106,7 +106,7 @@ class DesktopContainer extends Component {
                                     </Button>
                                     </Link>
                                     <Link to='/sign-up'>
-                                        <Button inverted={!fixed} primary={!fixed} style={{ marginLeft: '0.5em' }}>
+                                        <Button inverted={!fixed} /* primary={!fixed} */ style={{ marginLeft: '0.5em' }}>
                                             Sign up
                                         </Button>
                                     </Link>
@@ -336,8 +336,8 @@ export class Homepage extends Component {
                                     <List link inverted>
                                         <Link className="subnav_link" to="/pricing">Pricing</Link>
                                         <List.Item as='a'>Contact Us</List.Item>
-                                        <List.Item as='a'>Terms and Conditions</List.Item>
-                                        <List.Item as='a'>Privacy Statement</List.Item>
+                                        <List.Item as='a'>Terms of Service</List.Item>
+                                        <List.Item as='a'>Privacy Policy</List.Item>
                                     </List>
                                 </Grid.Column>
                                 <Grid.Column width={7}>

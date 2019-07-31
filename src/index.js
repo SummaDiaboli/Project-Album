@@ -10,11 +10,13 @@ import SignUp from './sign-up/SignUp';
 import HomePage from './homepage/Homepage';
 import Error404 from './errors/error404';
 import Pricing from './homepage/Pricing';
+import Account from './account/Account';
 
 const routing = (
     <Router>
         <div>
             <Route exact path="/" component={App} />
+            <Route path="/account" component={Account} />
             <Route path="/login" component={Login} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/home" component={HomePage} />

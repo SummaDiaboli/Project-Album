@@ -15,7 +15,7 @@ class Error404 extends Component {
                     }}
                     vertical
                 >
-                    <Grid
+                    <Grid stackable
                         textAlign="center"
                         verticalAlign="middle"
                         style={{

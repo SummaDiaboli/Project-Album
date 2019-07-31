@@ -35,8 +35,8 @@ export class Login extends React.Component {
                                 <Form.Input fluid icon="user" iconPosition="left" placeholder="E-mail Address" />
                                 <Form.Input fluid icon='lock' iconPosition="left" placeholder="Password" type="password" />
 
-                                <Link to="/home" style={{ color: "white" }}>
-                                    <Button color="google plus" fluid size="large" /* onClick={this.handleOnClick} */>
+                                <Link to="/account" style={{ color: "white" }}>
+                                    <Button color="green" fluid size="large" /* onClick={this.handleOnClick} */>
                                         Login
                                     </Button>
                                 </Link>

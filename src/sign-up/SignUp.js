@@ -37,8 +37,8 @@ export class SignUp extends Component {
                                 <Form.Input fluid icon='lock' iconPosition="left" placeholder="Password" type="password" />
                                 <Form.Input fluid icon='lock' iconPosition='left' placeholder="Confirm Password" type="password" />
 
-                                <Link to="/home" style={{ color: "black" }}>
-                                    <Button color="google plus" fluid size="large" /* onClick={this.handleOnClick} */>
+                                <Link to="/account" style={{ color: "black" }}>
+                                    <Button color="green" fluid size="large" /* onClick={this.handleOnClick} */>
                                         Sign up
                                     </Button>
                                 </Link>
