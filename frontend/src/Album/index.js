@@ -34,6 +34,14 @@ class Album extends Component {
         })
     }
 
+    /* async componentDidMount() {
+        const { match: { params } } = this.props
+        const album = (await axios.get(`http://localhost:5001/${params.albumId}`)).data
+        this.setState({
+            album
+        })
+    } */
+
     /* onChangeHandler = event => {
         const selectedFile = event.target.files[0]
         this.setState({
