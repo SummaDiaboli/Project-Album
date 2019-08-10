@@ -6,7 +6,9 @@ class Auth {
             domain: 'project-album.auth0.com',
             audience: 'https://project-album.auth0.com/userinfo',
             clientID: 'zisJJ3ZUskWxbynpCh5EYGZBK2CgJ8Qo',
-            redirectUri: 'http://localhost:3000/callback',
+            // redirectUri: 'http://localhost:3000/callback',
+            // redirectUri: 'http://localhost:5000/callback',
+            redirectUri: 'https://project-album.web.app/callback',
             responseType: 'id_token',
             scope: 'openid profile'
         })
@@ -41,20 +43,38 @@ class Auth {
                 if (!authResult || !authResult.idToken) {
                     return reject(err)
                 }
-                this.idToken = authResult.idToken
-                this.profile = authResult.idTokenPayload
-                // set the time that the id token will expire at
-                this.expiresAt = authResult.idTokenPayload.exp * 1000
+                this.setSession(authResult)
                 resolve()
             })
         })
     }
 
+    setSession(authResult) {
+        this.idToken = authResult.idToken;
+        this.profile = authResult.idTokenPayload;
+        // set the time that the id token will expire at
+        this.expiresAt = authResult.idTokenPayload.exp * 1000;
+    }
+
     signOut() {
         // clear id token, profile, and expiration
-        this.idToken = null
+        /* this.idToken = null
         this.profile = null
-        this.expiresAt = null
+        this.expiresAt = null */
+        this.auth0.logout({
+            returnTo: 'https://project-album.web.app',
+            clientID: 'zisJJ3ZUskWxbynpCh5EYGZBK2CgJ8Qo'
+        })
+    }
+
+    silentAuth() {
+        return new Promise((resolve, reject) => {
+            this.auth0.checkSession({}, (err, authResult) => {
+                if (err) return reject(err);
+                this.setSession(authResult);
+                resolve();
+            });
+        });
     }
 }
 

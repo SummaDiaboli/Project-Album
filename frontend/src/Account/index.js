@@ -34,6 +34,13 @@ class Account extends Component {
         })
     }
 
+    /* async componentDidMount() {
+        const albums = (await axios.get('http://localhost:5001/')).data
+        this.setState({
+            albums
+        })
+    } */
+
     handleMenuItemClick = (e, { name }) => this.setState({ activeMenuItem: name })
 
     render() {

@@ -49,6 +49,13 @@ class NewAlbum extends Component {
                 headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
             })
 
+        /* await axios.post('http://localhost:5001', {
+            title: this.state.title,
+            description: this.state.description
+        }, {
+                headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
+            }) */
+
         this.props.history.push('/account')
     }
 

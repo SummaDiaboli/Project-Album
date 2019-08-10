@@ -16,6 +16,7 @@ import "./Home.css"
 import * as ROUTES from '../constants/routes';
 import Footer from '../Navs/Footer';
 import ResponsiveContainer from '../Navs/Header';
+import auth0Client from '../constants/Auth';
 
 const HomepageHeading = ({ mobile }) => (
     <Container text>
@@ -40,12 +41,11 @@ const HomepageHeading = ({ mobile }) => (
                 marginTop: mobile ? '0.5em' : '0em',
             }}
         />
-        <Link to={ROUTES.SIGN_UP}>
-            <Button primary /* color="orange"  */ style={{ backgroundColor: "#00a226" }} size='huge'>
-                Get Started
+        {/* <Link to={ROUTES.SIGN_UP}> */}
+        <Button primary /* color="orange"  */ style={{ backgroundColor: "#00a226" }} size='huge' onClick={auth0Client.signIn}>
+            Get Started
                 <Icon name='right arrow' />
-            </Button>
-        </Link>
+        </Button>
     </Container>
 )
 
@@ -62,6 +62,7 @@ export class Home extends Component {
             <ResponsiveContainer
                 style={{ minHeight: 700, /* padding: '1em 0em', */ }}
                 homeHeading={<HomepageHeading />}
+                mobile
                 homeActive
             >
                 <Segment style={{ padding: '8em 0em' }} vertical>
