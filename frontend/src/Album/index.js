@@ -8,6 +8,7 @@ import {
     // Input,
     // Button
 } from "semantic-ui-react";
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import ResponsiveContainer from '../Navs/Header';
 import Footer from '../Navs/Footer';
@@ -73,11 +74,13 @@ class Album extends Component {
         const { album } = this.state
         if (album === null) return <Loader active inline="centered" indeterminate>Loading</Loader>
         return (
-            <ResponsiveContainer>
+            <ResponsiveContainer style={{ minHeight: 70 }}>
                 <Segment vertical style={{ minHeight: 700 }}>
                     <Segment style={{ marginLeft: 100, marginRight: 100 }}>
                         <Breadcrumb>
-                            <Breadcrumb.Section href={ROUTES.ACCOUNT}>Albums</Breadcrumb.Section>
+                            <Breadcrumb.Section link>
+                                <Link to={ROUTES.ACCOUNT}>Albums</Link>
+                            </Breadcrumb.Section>
                             <Breadcrumb.Divider icon="right angle" />
                             <Breadcrumb.Section active>{album.title}</Breadcrumb.Section>
                         </Breadcrumb>

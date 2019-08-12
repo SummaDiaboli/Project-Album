@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import axios from 'axios'
 import auth0Client from '../constants/Auth';
 import ResponsiveContainer from '../Navs/Header';
@@ -13,8 +13,9 @@ import {
     Breadcrumb
 } from 'semantic-ui-react';
 import * as ROUTES from '../constants/routes'
+import { withAuthorization } from '../Session';
 
-class NewAlbum extends Component {
+class NewAlbumBase extends Component {
     constructor(props) {
         super(props);
 
@@ -70,12 +71,16 @@ class NewAlbum extends Component {
             description === ""
 
         return (
-            <ResponsiveContainer>
+            <ResponsiveContainer style={{ minHeight: 70 }}>
                 <Segment vertical stacked style={{ minHeight: 700 }}>
                     {/* <Segment style={{ marginLeft: 112, marginRight: 112, minHeight: "100vh" }}> */}
                     <Segment style={{ margin: 10 }}>
                         <Breadcrumb>
-                            <Breadcrumb.Section href={ROUTES.ACCOUNT}>Albums</Breadcrumb.Section>
+                            {/* <Breadcrumb.Section href={ROUTES.ACCOUNT}> */}
+                            <Link to={ROUTES.ACCOUNT}>
+                                Albums
+                                </Link>
+                            {/* </Breadcrumb.Section> */}
                             <Breadcrumb.Divider icon="right angle" />
                             <Breadcrumb.Section active>New Album</Breadcrumb.Section>
                         </Breadcrumb>
@@ -119,4 +124,7 @@ class NewAlbum extends Component {
     }
 }
 
-export default withRouter(NewAlbum);
+const NewAlbum = withRouter(NewAlbumBase)
+
+const condition = authUser => !!authUser
+export default withAuthorization(condition)(NewAlbum);

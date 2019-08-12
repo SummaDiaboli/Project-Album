@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom"
 import { compose } from 'recompose';
 
 import * as ROUTES from '../constants/routes';
+import { withFirebase } from '../Firebase';
 
 const INITIAL_STATE = {
     username: '',
@@ -11,21 +12,25 @@ const INITIAL_STATE = {
     passwordOne: '',
     passwordTwo: '',
     error: null,
+    loading: false
 };
 
 const SignUpPage = () => (
     <div>
         <Grid textAlign="center" className="login-background" style={{
-            height: 100 + 'vh',
+            // height: 100 + 'vh',
+            minHeight: "100vh",
             // background: "linear-gradient(300deg, rgba(210,142,142,1) 21%, rgba(203,17,17,1) 60%, rgba(247,63,63,1) 100%)",
             margin: 0
         }} verticalAlign="middle">
             <Grid.Column
+
                 floated="right"
                 style={{
                     paddingTop: "20vh",
                     maxWidth: 450,
                     backgroundColor: "white",
+                    minheight: "100vh",
                     height: "100vh"
                 }}
             >
@@ -51,21 +56,34 @@ class SignUpFormBase extends Component {
         this.state = { ...INITIAL_STATE }
     }
 
-    /* onSubmit = (event) => {
+    onSubmit = (event) => {
         const { username, email, passwordOne } = this.state
 
+        this.setState({
+            loading: true
+        })
+
         this.props.firebase
-            .doCreateUserWithEmailAndPassword(email, passwordOne)
+            .createUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
+                // Create a user in firebase realtime database
+                return this.props.firebase
+                    .user(authUser.user.uid)
+                    .set({
+                        username,
+                        email
+                    })
+            })
+            .then(() => {
                 this.setState({ ...INITIAL_STATE })
                 this.props.history.push(ROUTES.ACCOUNT)
             })
             .catch(error => {
-                this.setState({ error })
+                this.setState({ error, loading: false })
             })
 
         event.preventDefault();
-    } */
+    }
 
     onChange = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -79,20 +97,20 @@ class SignUpFormBase extends Component {
             passwordOne,
             passwordTwo,
             error,
-        } = this.state;
+            loading
+        } = this.state
 
         const isInvalid =
             passwordOne !== passwordTwo ||
             passwordOne === '' ||
+            passwordOne.length < 8 ||
             email === '' ||
-            username === '';
+            username === ''
 
         return (
             <div>
-
                 <Form size="large" onSubmit={this.onSubmit}>
-                    <Segment stacked >
-
+                    <Segment /* stacked */ >
                         <Form.Input
                             fluid
                             name="username"
@@ -132,13 +150,20 @@ class SignUpFormBase extends Component {
                             onChange={this.onChange}
                         />
 
-                        <Link to={ROUTES.ACCOUNT} style={{ color: "black" }}>
-                            <Button disabled={isInvalid} color="green" fluid size="large" type='submit'>
-                                Sign up
+                        {/* <Link to={ROUTES.ACCOUNT} style={{ color: "black" }}> */}
+                        <Button
+                            disabled={isInvalid}
+                            color="green"
+                            fluid
+                            size="large"
+                            type='submit'
+                            loading={loading}
+                        >
+                            Sign up
                         </Button>
 
-                            {error && <p>{error.message}</p>}
-                        </Link>
+                        {error && <Message>{error.message}</Message>}
+                        {/* </Link> */}
                     </Segment>
                 </Form>
 
@@ -155,6 +180,7 @@ const SignUpLink = () => (
 
 const SignUpForm = compose(
     withRouter,
+    withFirebase
 )(SignUpFormBase)
 
 export default SignUpPage

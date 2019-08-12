@@ -6,16 +6,18 @@ import {
     Grid,
     // Image,
     Card,
-    Loader,
+    // Loader,
     Menu,
     Input,
-    Button
+    Button,
+    Placeholder
 } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
 import ResponsiveContainer from '../Navs/Header';
 import Footer from '../Navs/Footer';
 import axios from 'axios'
 import * as ROUTES from '../constants/routes';
+import { withAuthorization } from '../Session';
 
 class Account extends Component {
     constructor(props) {
@@ -43,19 +45,55 @@ class Account extends Component {
 
     handleMenuItemClick = (e, { name }) => this.setState({ activeMenuItem: name })
 
+    createPlaceholders = () => {
+        let placeholders = []
+
+        for (let i = 0; i < 8; i++) {
+            placeholders.push(
+                <Card key={i} raised style={{ minHeight: 150, margin: 15 }}>
+                    <Card.Content>
+                        <Card.Header>
+                            <Placeholder>
+                                <Placeholder.Header>
+                                    <Placeholder.Line length="very long" />
+                                </Placeholder.Header>
+                            </Placeholder>
+                        </Card.Header>
+                        <Card.Meta style={{ marginBottom: 15, marginTop: 10 }}>
+                            <Placeholder>
+                                <Placeholder.Line length="medium" />
+                            </Placeholder>
+                        </Card.Meta>
+                        <Card.Description>
+                            <Placeholder>
+                                <Placeholder.Paragraph>
+                                    <Placeholder.Line length="very long" />
+                                    <Placeholder.Line length="long" />
+                                    <Placeholder.Line length="long" />
+                                    <Placeholder.Line length="long" />
+                                </Placeholder.Paragraph>
+                            </Placeholder>
+                        </Card.Description>
+                    </Card.Content>
+                </Card>
+            )
+        }
+
+        return placeholders
+    }
+
     render() {
-        document.title = "Account"
         return (
             <div>
-                <ResponsiveContainer accountActive>
+                <ResponsiveContainer accountActive style={{ minHeight: 70 }}>
                     <Segment vertical style={{ minHeight: 700 }}>
-                        <Grid
-                            stackable
-                            container
-                            celled="internally"
-                            style={{ minHeight: 700 }}
-                        >
-                            <Segment style={{ width: "100%" }}>
+                        <Segment style={{ width: "100%" }}>
+                            <Grid
+                                // stackable
+                                // container
+                                celled="internally"
+                                style={{ minHeight: 700, /* marginRight: 10 */ }}
+                            >
                                 <Grid.Column>
                                     <Menu stackable borderless>
                                         <Menu.Item header>Sort By</Menu.Item>
@@ -100,9 +138,12 @@ class Account extends Component {
                                         <Card.Group>
                                             {
                                                 this.state.albums === null &&
-                                                <Loader active inline="centered" indeterminate>
-                                                    Getting Albums
-                                                </Loader>
+
+                                                this.createPlaceholders()
+
+                                                // {/* <Loader active inline="centered" indeterminate>
+                                                //     Getting Albums
+                                                // </Loader> */}
                                             }
                                             {
                                                 this.state.albums && this.state.albums.map((album, index) => (
@@ -122,8 +163,8 @@ class Account extends Component {
                                         </Card.Group>
                                     </Grid.Row>
                                 </Grid.Column>
-                            </Segment>
-                        </Grid>
+                            </Grid>
+                        </Segment>
                     </Segment>
 
                     <Footer />
@@ -133,4 +174,6 @@ class Account extends Component {
     }
 }
 
-export default Account;
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(Account);

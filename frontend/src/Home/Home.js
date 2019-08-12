@@ -57,10 +57,10 @@ HomepageHeading.propTypes = {
 export class Home extends Component {
 
     render() {
-
+        
         return (
             <ResponsiveContainer
-                style={{ minHeight: 700, /* padding: '1em 0em', */ }}
+                style={{ minHeight: /* 340 */"100vh", /* padding: '1em 0em', */ }}
                 homeHeading={<HomepageHeading />}
                 mobile
                 homeActive

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, } from 'react'
 import {
     Button,
     Container,
@@ -16,6 +16,13 @@ import auth0Client from '../constants/Auth';
 
 
 import * as ROUTES from '../constants/routes'
+import AccountButton from './AccountButton';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
+// import { AuthUserContext } from '../Session';
+import SidebarAccount from './SidebarAccount';
+// import SignOutButton from './SignOutButton';
+
 
 
 const getWidth = () => {
@@ -50,7 +57,7 @@ const HomepageHeading = ({ mobile }) => (
         {/* <Link to={ROUTES.SIGN_UP}> */}
         <Button primary style={{ backgroundColor: "#00a226" }} size='huge' onClick={auth0Client.signIn}>
             Get Started
-                <Icon name='right arrow' />
+            <Icon name='right arrow' />
         </Button>
     </Container>
 )
@@ -58,19 +65,18 @@ const HomepageHeading = ({ mobile }) => (
 class DesktopContainer extends Component {
     state = {}
 
-
     hideFixedMenu = () => this.setState({ fixed: false })
     showFixedMenu = () => this.setState({ fixed: true })
 
     render() {
-        const { children, history } = this.props
+        const { children, /* history */ } = this.props
         const { fixed } = this.state
         // const { history } = this.props
 
-        const signOut = () => {
+        /* const signOut = () => {
             auth0Client.signOut()
             history.replace('/')
-        }
+        } */
 
         return (
             <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
@@ -99,30 +105,16 @@ class DesktopContainer extends Component {
                                 <Menu.Item active={this.props.pricingActive}>
                                     <Link to={ROUTES.PRICING}>Pricing</Link>
                                 </Menu.Item>
-                                {/* <Menu.Item active={this.props.accountActive}>
-                                    <Link to={ROUTES.ACCOUNT}>Account</Link>
-                                </Menu.Item> */}
-                                {
-                                    !auth0Client.isAuthenticated() &&
-                                    <Menu.Item position="right">
-                                        <Button inverted={!fixed} onClick={auth0Client.signIn}>
+                                <Menu.Item position="right">
+                                    {/* <Link to={ROUTES.SIGN_IN}>
+                                        <Button inverted={!fixed}>
                                             Sign In
                                         </Button>
-                                        {/* <Link to={ROUTES.SIGN_IN}>
-                                            <Button inverted={!fixed}>
-                                                Log in
-                                            </Button>
-                                        </Link>
-
-                                        <Link to={ROUTES.SIGN_UP}>
-                                            <Button inverted={!fixed}  style={{ marginLeft: '0.5em' }}>
-                                                Sign up
-                                            </Button>
-                                        </Link> */}
-
-                                    </Menu.Item>
-                                }
-                                {
+                                    </Link> */}
+                                    <AccountButton inverted={!fixed} />
+                                    {/* <SignOutButton inverted={!fixed} /> */}
+                                </Menu.Item>
+                                {/*  {
                                     auth0Client.isAuthenticated() &&
                                     <Menu.Item position="right">
                                         <Link to={ROUTES.ACCOUNT}>
@@ -134,7 +126,7 @@ class DesktopContainer extends Component {
                                             Sign Out
                                         </Button>
                                     </Menu.Item>
-                                }
+                                } */}
                             </Container>
                         </Menu>
                         {this.props.homeHeading}
@@ -161,25 +153,32 @@ class MobileContainer extends Component {
     componentWillMount() {
         if (this.props.homeHeading != null) {
             if (this.props.mobile != null) {
-                this.setState({ homepage: true, mobile: true })
+                this.setState({ homepage: true, mobile: true, minHeight: 340 })
+            } else {
+                this.setState({ minHeight: "100vh" })
             }
+        } else {
+            this.setState({ minHeight: 60 })
         }
     }
 
     changeStyle() {
-        if (this.props.style != null) {
-            return 500
+        if (this.props.style != null && this.props.homeActive != null) {
+            // return 500
+            return { minHeight: 500 }
+        } else {
+            return this.props.style
         }
     }
 
     render() {
-        const { children, history } = this.props
+        const { children, /* history  */ } = this.props
         const { sidebarOpened } = this.state
 
-        const signOut = () => {
+        /* const signOut = () => {
             auth0Client.signOut()
             history.replace('/')
-        }
+        } */
 
         return (
             <Responsive
@@ -194,6 +193,7 @@ class MobileContainer extends Component {
                     onHide={this.handleSideBarMode}
                     vertical
                     visible={sidebarOpened}
+                    fixed="left"
                 >
                     <Link to={ROUTES.HOME}>
                         <Menu.Item active={this.props.homeActive}>
@@ -205,22 +205,17 @@ class MobileContainer extends Component {
                             Pricing
                         </Menu.Item>
                     </Link>
-                    <Link to={ROUTES.ACCOUNT}>
+                    <SidebarAccount />
+                    {/* <Link to={ROUTES.ACCOUNT}>
                         <Menu.Item active={this.props.accountActive}>
                             Account
                         </Menu.Item>
-                    </Link>
-                    {/* <Link to={ROUTES.SIGN_IN} >
-                        <Menu.Item>Log in</Menu.Item>
-                    </Link>
-                    <Link to={ROUTES.SIGN_UP}>
-                        <Menu.Item>Sign in</Menu.Item>
                     </Link> */}
-                    {
+                    {/* {
                         !auth0Client.isAuthenticated() &&
                         <Menu.Item onClick={auth0Client.signIn} as="a">
                             Sign In
-                            {/* <Link to={ROUTES.SIGN_IN}>
+                            <Link to={ROUTES.SIGN_IN}>
                                             <Button inverted={!fixed}>
                                                 Log in
                                             </Button>
@@ -230,7 +225,7 @@ class MobileContainer extends Component {
                                             <Button inverted={!fixed}  style={{ marginLeft: '0.5em' }}>
                                                 Sign up
                                             </Button>
-                                </Link> */}
+                                </Link>
 
                         </Menu.Item>
                     }
@@ -246,14 +241,16 @@ class MobileContainer extends Component {
                                 Sign Out
                             </Menu.Item>
                         </div>
-                    }
+                    } */}
                 </Sidebar>
 
                 <Sidebar.Pusher dimmed={sidebarOpened}>
+
                     <Segment
                         inverted
                         textAlign='center'
-                        style={{ minHeight: this.changeStyle }}
+                        // style={this.props.style}
+                        style={{ minHeight: this.state.minHeight }}
                         vertical
                     >
                         <Container>
@@ -265,9 +262,9 @@ class MobileContainer extends Component {
                                     {
                                         !auth0Client.isAuthenticated() &&
                                         <div>
-                                            <Button inverted onClick={auth0Client.signIn} style={{ margin: 0 }}>
+                                            {/* <Button inverted onClick={auth0Client.signIn} style={{ margin: 0 }}>
                                                 Sign In
-                                            </Button>
+                                            </Button> */}
                                             {/* <Link to={ROUTES.SIGN_IN}>
                                             <Button inverted={!fixed}>
                                                 Log in
@@ -298,9 +295,10 @@ class MobileContainer extends Component {
                         {this.state.homepage && <HomepageHeading mobile />}
                     </Segment>
 
+
                     {children}
                 </Sidebar.Pusher>
-            </Responsive>
+            </Responsive >
         );
     }
 }
@@ -339,7 +337,7 @@ ResponsiveContainer.propTypes = {
     homeHeading: PropTypes.node
 }
 
-const DesktopWithRouter = withRouter(DesktopContainer)
-const MobileWithRouter = withRouter(MobileContainer)
+const DesktopWithRouter = compose(withRouter, withFirebase)(DesktopContainer)
+const MobileWithRouter = compose(withRouter, withFirebase)(MobileContainer)
 
 export default withRouter(ResponsiveContainer);
