@@ -5,11 +5,14 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import App from './App';
+import Firebase, { FirebaseContext } from './Firebase'
 
 ReactDOM.render(
-    <Router >
-        <App />
-    </Router>,
+    <FirebaseContext.Provider value={new Firebase()}>
+        <Router >
+            <App />
+        </Router>
+    </FirebaseContext.Provider>,
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

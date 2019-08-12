@@ -17,10 +17,9 @@ class Pricing extends Component {
     handleSubscription = () => this.setState({ subscribed: !this.subscribed })
 
     render() {
-        document.title = "Pricing"
         return (
             <div>
-                <ResponsiveContainer pricingActive>
+                <ResponsiveContainer pricingActive style={{ minHeight: 70 }}>
                     <Segment /* style={{ padding: '1vh 8vw' }} */ vertical>
                         <Segment style={{ padding: '3em 2em' }}>
                             <PricingSection />
