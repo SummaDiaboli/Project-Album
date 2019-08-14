@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Grid, Icon, Segment, Button, Container } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
-import * as ROUTES from '../constants/routes';
+
 import Emoji from "../supplementary/Emoji"
 
+import * as ROUTES from '../constants/routes';
 
 class Error404 extends Component {
     render() {
@@ -27,10 +28,6 @@ class Error404 extends Component {
                     >
                         <Grid.Column
                             width={8}
-                            style={{
-                                // backgroundColor: "white",
-                                // maxWidth: 200
-                            }}
                         >
                             <Icon bordered name="warning sign" size="massive" inverted />
                             <p style={{

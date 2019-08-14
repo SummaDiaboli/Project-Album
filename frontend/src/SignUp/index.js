@@ -18,9 +18,7 @@ const INITIAL_STATE = {
 const SignUpPage = () => (
     <div>
         <Grid textAlign="center" className="login-background" style={{
-            // height: 100 + 'vh',
             minHeight: "100vh",
-            // background: "linear-gradient(300deg, rgba(210,142,142,1) 21%, rgba(203,17,17,1) 60%, rgba(247,63,63,1) 100%)",
             margin: 0
         }} verticalAlign="middle">
             <Grid.Column
@@ -66,7 +64,6 @@ class SignUpFormBase extends Component {
         this.props.firebase
             .createUserWithEmailAndPassword(email, passwordOne)
             .then(authUser => {
-                // Create a user in firebase realtime database
                 return this.props.firebase
                     .user(authUser.user.uid)
                     .set({
@@ -120,6 +117,7 @@ class SignUpFormBase extends Component {
                             placeholder="Full Name"
                             onChange={this.onChange}
                         />
+
                         <Form.Input
                             fluid
                             name="email"
@@ -129,6 +127,7 @@ class SignUpFormBase extends Component {
                             placeholder="E-mail Address"
                             onChange={this.onChange}
                         />
+
                         <Form.Input
                             fluid
                             name="passwordOne"
@@ -139,6 +138,7 @@ class SignUpFormBase extends Component {
                             type="password"
                             onChange={this.onChange}
                         />
+
                         <Form.Input
                             fluid
                             name="passwordTwo"
@@ -150,7 +150,6 @@ class SignUpFormBase extends Component {
                             onChange={this.onChange}
                         />
 
-                        {/* <Link to={ROUTES.ACCOUNT} style={{ color: "black" }}> */}
                         <Button
                             disabled={isInvalid}
                             color="green"
@@ -163,7 +162,6 @@ class SignUpFormBase extends Component {
                         </Button>
 
                         {error && <Message>{error.message}</Message>}
-                        {/* </Link> */}
                     </Segment>
                 </Form>
 

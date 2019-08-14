@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
+import Firebase, { FirebaseContext } from './Firebase'
 
 import App from './App';
-import Firebase, { FirebaseContext } from './Firebase'
 
 ReactDOM.render(
     <FirebaseContext.Provider value={new Firebase()}>
@@ -13,7 +13,8 @@ ReactDOM.render(
             <App />
         </Router>
     </FirebaseContext.Provider>,
-    document.getElementById('root'));
+    document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

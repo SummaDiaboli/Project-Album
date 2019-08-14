@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from "react-router-dom"
-import auth0Client from '../constants/Auth';
+import auth0Client from '../constants/unused/Auth0Client';
 
 
 import * as ROUTES from '../constants/routes'
@@ -21,9 +21,6 @@ import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 // import { AuthUserContext } from '../Session';
 import SidebarAccount from './SidebarAccount';
-// import SignOutButton from './SignOutButton';
-
-
 
 const getWidth = () => {
     const isSSR = typeof window == 'undefined'
@@ -71,12 +68,6 @@ class DesktopContainer extends Component {
     render() {
         const { children, /* history */ } = this.props
         const { fixed } = this.state
-        // const { history } = this.props
-
-        /* const signOut = () => {
-            auth0Client.signOut()
-            history.replace('/')
-        } */
 
         return (
             <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
@@ -88,7 +79,7 @@ class DesktopContainer extends Component {
                     <Segment
                         inverted
                         textAlign='center'
-                        style={this.props.style}/* {{ minHeight: 700, padding: '1em 0em', }} */
+                        style={this.props.style}
                         vertical
                     >
                         <Menu
@@ -102,31 +93,15 @@ class DesktopContainer extends Component {
                                 <Menu.Item active={this.props.homeActive}>
                                     <Link to={ROUTES.HOME}>Home</Link>
                                 </Menu.Item>
+
                                 <Menu.Item active={this.props.pricingActive}>
                                     <Link to={ROUTES.PRICING}>Pricing</Link>
                                 </Menu.Item>
+
                                 <Menu.Item position="right">
-                                    {/* <Link to={ROUTES.SIGN_IN}>
-                                        <Button inverted={!fixed}>
-                                            Sign In
-                                        </Button>
-                                    </Link> */}
                                     <AccountButton inverted={!fixed} />
-                                    {/* <SignOutButton inverted={!fixed} /> */}
                                 </Menu.Item>
-                                {/*  {
-                                    auth0Client.isAuthenticated() &&
-                                    <Menu.Item position="right">
-                                        <Link to={ROUTES.ACCOUNT}>
-                                            <Button circular inverted={!fixed}>
-                                                {auth0Client.getProfile().name}
-                                            </Button>
-                                        </Link>
-                                        <Button circular inverted={!fixed} onClick={signOut}>
-                                            Sign Out
-                                        </Button>
-                                    </Menu.Item>
-                                } */}
+
                             </Container>
                         </Menu>
                         {this.props.homeHeading}
@@ -142,7 +117,6 @@ class DesktopContainer extends Component {
 DesktopContainer.propTypes = {
     children: PropTypes.node,
     history: PropTypes.object.isRequired
-    // homeHeading: PropTypes.node,
 }
 
 class MobileContainer extends Component {
@@ -175,11 +149,6 @@ class MobileContainer extends Component {
         const { children, /* history  */ } = this.props
         const { sidebarOpened } = this.state
 
-        /* const signOut = () => {
-            auth0Client.signOut()
-            history.replace('/')
-        } */
-
         return (
             <Responsive
                 as={Sidebar.Pushable}
@@ -200,48 +169,14 @@ class MobileContainer extends Component {
                             Home
                         </Menu.Item>
                     </Link>
+
                     <Link to={ROUTES.PRICING}>
                         <Menu.Item active={this.props.pricingActive}>
                             Pricing
                         </Menu.Item>
                     </Link>
+
                     <SidebarAccount />
-                    {/* <Link to={ROUTES.ACCOUNT}>
-                        <Menu.Item active={this.props.accountActive}>
-                            Account
-                        </Menu.Item>
-                    </Link> */}
-                    {/* {
-                        !auth0Client.isAuthenticated() &&
-                        <Menu.Item onClick={auth0Client.signIn} as="a">
-                            Sign In
-                            <Link to={ROUTES.SIGN_IN}>
-                                            <Button inverted={!fixed}>
-                                                Log in
-                                            </Button>
-                                        </Link>
-
-                                        <Link to={ROUTES.SIGN_UP}>
-                                            <Button inverted={!fixed}  style={{ marginLeft: '0.5em' }}>
-                                                Sign up
-                                            </Button>
-                                </Link>
-
-                        </Menu.Item>
-                    }
-                    {
-                        auth0Client.isAuthenticated() &&
-                        <div>
-                            <Menu.Item>
-                                <Link to={ROUTES.ACCOUNT}>
-                                    {auth0Client.getProfile().name}
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item onClick={signOut}>
-                                Sign Out
-                            </Menu.Item>
-                        </div>
-                    } */}
                 </Sidebar>
 
                 <Sidebar.Pusher dimmed={sidebarOpened}>
@@ -257,37 +192,6 @@ class MobileContainer extends Component {
                             <Menu inverted pointing secondary size='large' fixed="top">
                                 <Menu.Item onClick={this.handleToggle} position="left" fitted>
                                     <Icon fitted name="sidebar" size="large" />
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {
-                                        !auth0Client.isAuthenticated() &&
-                                        <div>
-                                            {/* <Button inverted onClick={auth0Client.signIn} style={{ margin: 0 }}>
-                                                Sign In
-                                            </Button> */}
-                                            {/* <Link to={ROUTES.SIGN_IN}>
-                                            <Button inverted={!fixed}>
-                                                Log in
-                                            </Button>
-                                        </Link>
-
-                                        <Link to={ROUTES.SIGN_UP}>
-                                            <Button inverted={!fixed}  style={{ marginLeft: '0.5em' }}>
-                                                Sign up
-                                            </Button>
-                                        </Link> */}
-                                        </div>
-                                    }
-                                    {
-                                        auth0Client.isAuthenticated() &&
-                                        <Menu.Item position="right">
-                                            <Link to={ROUTES.ACCOUNT}>
-                                                <Button circular inverted>
-                                                    {auth0Client.getProfile().name}
-                                                </Button>
-                                            </Link>
-                                        </Menu.Item>
-                                    }
                                 </Menu.Item>
                             </Menu>
                         </Container>

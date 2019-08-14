@@ -14,7 +14,7 @@ class FeaturesSection extends Component {
             <div>
                 <Grid stackable columns="3">
                     <Grid.Row style={{ paddingBottom: 30 }} centered>
-                        <Header as="h1" /* style={{ paddingLeft: 16 }} */>
+                        <Header as="h1">
                             All plans come with...
                         </Header>
                     </Grid.Row>

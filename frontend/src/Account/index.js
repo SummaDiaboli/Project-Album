@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import {
-    /* Button,
-    Icon, */
     Segment,
     Grid,
-    // Image,
     Card,
-    // Loader,
     Menu,
     Input,
     Button,
     Placeholder
 } from 'semantic-ui-react'
 import { Link } from "react-router-dom";
-import ResponsiveContainer from '../Navs/Header';
-import Footer from '../Navs/Footer';
-import axios from 'axios'
-import * as ROUTES from '../constants/routes';
 import { withAuthorization } from '../Session';
+import { Footer, ResponsiveContainer } from '../Navs'
+import axios from 'axios'
+
+import * as ROUTES from '../constants/routes';
 
 class Account extends Component {
     constructor(props) {
@@ -29,19 +25,13 @@ class Account extends Component {
         }
     }
 
+    /* TODO: Learn a way to fetch data from firebase instead and replace this function */
     async componentDidMount() {
         const albums = (await axios.get('http://localhost:8081/')).data
         this.setState({
             albums
         })
     }
-
-    /* async componentDidMount() {
-        const albums = (await axios.get('http://localhost:5001/')).data
-        this.setState({
-            albums
-        })
-    } */
 
     handleMenuItemClick = (e, { name }) => this.setState({ activeMenuItem: name })
 
@@ -89,10 +79,8 @@ class Account extends Component {
                     <Segment vertical style={{ minHeight: 700 }}>
                         <Segment style={{ width: "100%" }}>
                             <Grid
-                                // stackable
-                                // container
                                 celled="internally"
-                                style={{ minHeight: 700, /* marginRight: 10 */ }}
+                                style={{ minHeight: 700, }}
                             >
                                 <Grid.Column>
                                     <Menu stackable borderless>
@@ -137,15 +125,9 @@ class Account extends Component {
                                     <Grid.Row style={{ clear: "both", paddingTop: "10px" }} >
                                         <Card.Group>
                                             {
-                                                this.state.albums === null &&
-
-                                                this.createPlaceholders()
-
-                                                // {/* <Loader active inline="centered" indeterminate>
-                                                //     Getting Albums
-                                                // </Loader> */}
+                                                this.state.albums === null && this.createPlaceholders()
                                             }
-                                            {
+                                            {/* {
                                                 this.state.albums && this.state.albums.map((album, index) => (
                                                     <Link to={`/album/${album.id}`} key={index}>
                                                         <Card color="green" style={{ margin: 10 }}>
@@ -159,7 +141,7 @@ class Account extends Component {
                                                         </Card>
                                                     </Link>
                                                 ))
-                                            }
+                                            } */}
                                         </Card.Group>
                                     </Grid.Row>
                                 </Grid.Column>

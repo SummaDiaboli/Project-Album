@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom'
-import axios from 'axios'
-import auth0Client from '../constants/Auth';
-import ResponsiveContainer from '../Navs/Header';
-import Footer from '../Navs/Footer';
 import {
-    // Grid,
-    // Card,
     Form,
     Button,
     Segment,
     Breadcrumb
 } from 'semantic-ui-react';
+import { withAuthorization } from '../Session'
+import { Footer, ResponsiveContainer } from '../Navs'
+
 import * as ROUTES from '../constants/routes'
-import { withAuthorization } from '../Session';
+
+import axios from 'axios'
+import auth0Client from '../constants/unused/Auth0Client'
 
 class NewAlbumBase extends Component {
     constructor(props) {
@@ -38,6 +37,8 @@ class NewAlbumBase extends Component {
         })
     }
 
+    /* TODO: Replace this with a working function */
+
     async submit() {
         this.setState({
             disabled: true
@@ -49,13 +50,6 @@ class NewAlbumBase extends Component {
         }, {
                 headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
             })
-
-        /* await axios.post('http://localhost:5001', {
-            title: this.state.title,
-            description: this.state.description
-        }, {
-                headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
-            }) */
 
         this.props.history.push('/account')
     }

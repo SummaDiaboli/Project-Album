@@ -3,12 +3,11 @@ import {
     Segment,
     Divider,
 } from 'semantic-ui-react'
+import { Footer, ResponsiveContainer } from '../Navs'
+
 import FeaturesSection from './PricingSections/FeaturesSection'
 import PricingSection from './PricingSections/PricingSection'
 import FAQSection from './PricingSections/FAQSection';
-
-import ResponsiveContainer from '../Navs/Header';
-import Footer from '../Navs/Footer';
 
 class Pricing extends Component {
     state = {
@@ -20,7 +19,7 @@ class Pricing extends Component {
         return (
             <div>
                 <ResponsiveContainer pricingActive style={{ minHeight: 70 }}>
-                    <Segment /* style={{ padding: '1vh 8vw' }} */ vertical>
+                    <Segment vertical>
                         <Segment style={{ padding: '3em 2em' }}>
                             <PricingSection />
 

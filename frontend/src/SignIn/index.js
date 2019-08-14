@@ -2,20 +2,17 @@ import React, { Component } from "react"
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link, withRouter } from "react-router-dom"
 import { compose } from 'recompose';
-
-import * as ROUTES from '../constants/routes';
-// import { SignUpLink } from '../SignUp'
-
-import "./SignIn.css"
-// import auth0Client from "../constants/Auth";
 import { withFirebase } from "../Firebase";
 import { PasswordForgetLink } from "../PasswordForget";
+
+import * as ROUTES from '../constants/routes';
+
+import "./SignIn.css"
 
 const SignInPage = () => (
     <div>
         <Grid textAlign="center" className="login-background" style={{
             height: 100 + 'vh',
-            // background: "linear-gradient(300deg, rgba(210,142,142,1) 21%, rgba(203,17,17,1) 60%, rgba(247,63,63,1) 100%)",
             margin: 0
         }} verticalAlign="middle">
             <Grid.Column
@@ -29,7 +26,7 @@ const SignInPage = () => (
                 }}
                 width="16"
             >
-                <Header as="h2" /* color="black" */ style={{ color: "black" }} textAlign="center">
+                <Header as="h2" style={{ color: "black" }} textAlign="center">
                     <Image src={require('../assets/images/album-icon.png')} circular />
                     Log in to your account
                 </Header>
@@ -96,7 +93,7 @@ class SignInFormBase extends Component {
                     size="large"
                     onSubmit={this.onSubmit}
                 >
-                    <Segment /* stacked */>
+                    <Segment>
                         <Form.Input
                             fluid
                             name="email"
@@ -106,6 +103,7 @@ class SignInFormBase extends Component {
                             iconPosition="left"
                             placeholder="E-mail Address"
                         />
+
                         <Form.Input
                             fluid
                             name="password"
@@ -116,7 +114,7 @@ class SignInFormBase extends Component {
                             placeholder="Password"
                             type="password"
                         />
-                        {/* <Link to={ROUTES.ACCOUNT}> */}
+
                         <Button
                             disabled={isInvalid}
                             color="green"
@@ -127,13 +125,10 @@ class SignInFormBase extends Component {
                         >
                             Sign In
                         </Button>
-                        {/* </Link> */}
 
                         {error && <Message>{error.message}</Message>}
                     </Segment>
                 </Form>
-
-
             </div >
         )
     }

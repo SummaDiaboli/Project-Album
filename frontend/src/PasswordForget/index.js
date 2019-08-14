@@ -21,7 +21,7 @@ const PasswordForgetPage = () => (
                 }}
                 width="16"
             >
-                <Header as="h2" /* color="black" */ style={{ color: "black" }} textAlign="center">
+                <Header as="h2" style={{ color: "black" }} textAlign="center">
                     <Image src={require('../assets/images/album-icon.png')} circular />
                     Reset Your Password
                 </Header>
@@ -78,7 +78,7 @@ class PasswordForgetFormBase extends Component {
                     size="large"
                     onSubmit={this.onSubmit}
                 >
-                    <Segment stacked>
+                    <Segment>
                         <Form.Input
                             fluid
                             name="email"
@@ -88,7 +88,7 @@ class PasswordForgetFormBase extends Component {
                             iconPosition="left"
                             placeholder="E-mail Address"
                         />
-                        {/* <Link to={ROUTES.ACCOUNT}> */}
+
                         <Button
                             disabled={isInvalid}
                             color="google plus"
@@ -99,8 +99,7 @@ class PasswordForgetFormBase extends Component {
                         >
                             Reset My Password
                         </Button>
-                        {/* </Link> */}
-
+                        
                         {error && <Message>{error.message}</Message>}
                     </Segment>
                 </Form>

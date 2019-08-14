@@ -16,7 +16,7 @@ import "./Home.css"
 import * as ROUTES from '../constants/routes';
 import Footer from '../Navs/Footer';
 import ResponsiveContainer from '../Navs/Header';
-import auth0Client from '../constants/Auth';
+// import auth0Client from '../constants/Auth';
 
 const HomepageHeading = ({ mobile }) => (
     <Container text>
@@ -42,9 +42,9 @@ const HomepageHeading = ({ mobile }) => (
             }}
         />
         {/* <Link to={ROUTES.SIGN_UP}> */}
-        <Button primary /* color="orange"  */ style={{ backgroundColor: "#00a226" }} size='huge' onClick={auth0Client.signIn}>
+        <Button primary style={{ backgroundColor: "#00a226" }} size='huge' as={Link} to={ROUTES.SIGN_IN}>
             Get Started
-                <Icon name='right arrow' />
+        <Icon name='right arrow' />
         </Button>
     </Container>
 )
@@ -55,9 +55,8 @@ HomepageHeading.propTypes = {
 }
 
 export class Home extends Component {
-
     render() {
-        
+
         return (
             <ResponsiveContainer
                 style={{ minHeight: /* 340 */"100vh", /* padding: '1em 0em', */ }}

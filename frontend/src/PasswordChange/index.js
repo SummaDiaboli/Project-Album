@@ -21,7 +21,7 @@ const PasswordChangePage = () => (
                 }}
                 width="16"
             >
-                <Header as="h2" /* color="black" */ style={{ color: "black" }} textAlign="center">
+                <Header as="h2" style={{ color: "black" }} textAlign="center">
                     <Image src={require('../assets/images/album-icon.png')} circular />
                     Change Your Password
                 </Header>
@@ -81,7 +81,7 @@ class PasswordChangeFormBase extends Component {
                     size="large"
                     onSubmit={this.onSubmit}
                 >
-                    <Segment stacked>
+                    <Segment>
                         <Form.Input
                             fluid
                             name="passwordOne"
@@ -91,6 +91,7 @@ class PasswordChangeFormBase extends Component {
                             iconPosition="left"
                             placeholder="New Password"
                         />
+
                         <Form.Input
                             fluid
                             name="passwordTwo"
@@ -100,7 +101,7 @@ class PasswordChangeFormBase extends Component {
                             iconPosition="left"
                             placeholder="Confirm New Password"
                         />
-                        {/* <Link to={ROUTES.ACCOUNT}> */}
+
                         <Button
                             disabled={isInvalid}
                             color="google plus"

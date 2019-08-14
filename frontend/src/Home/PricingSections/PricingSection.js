@@ -25,11 +25,9 @@ class PricingSection extends Component {
                 </p>
 
                 <Grid
-                    // textAlign="center"
                     verticalAlign="middle"
                     stackable
                     container
-                    // doubling
                     celled="internally"
                 >
                     <Grid.Row columns="3" textAlign="center">
@@ -44,7 +42,6 @@ class PricingSection extends Component {
                             </Header>
 
                             <p style={{
-                                // color: "#8D021F",
                                 fontSize: 36,
                                 margin: 12,
                             }}>
@@ -57,7 +54,6 @@ class PricingSection extends Component {
 
                             <p style={{
                                 padding: "0 30px 20px 30px",
-                                // color: "#8D021F",
                                 fontSize: 14
                             }}>
                                 Free account forever when you create a new account
@@ -104,7 +100,9 @@ class PricingSection extends Component {
                                         }}
                                         name="question circle outline"
                                     />
-                                    <List.Content style={{ textAlign: "left" }}>Picture Customization</List.Content>
+                                    <List.Content style={{ textAlign: "left" }}>
+                                        Picture Customization
+                                    </List.Content>
                                 </List.Item>
 
                                 <List.Item disabled style={{ paddingBottom: 30 }}>
@@ -121,11 +119,9 @@ class PricingSection extends Component {
                                 </List.Item>
 
                                 <Button
-                                    // disabled
                                     fluid
                                     content="Subscribe"
                                     color="green"
-                                // icon="check"
                                 />
                             </List>
 
@@ -143,7 +139,6 @@ class PricingSection extends Component {
                             </Header>
 
                             <p style={{
-                                // color: "#8D021F",
                                 fontSize: 36,
                                 margin: 6,
                             }}>
@@ -161,7 +156,6 @@ class PricingSection extends Component {
 
                             <p style={{
                                 padding: "0 30px 20px 30px",
-                                // color: "#8D021F",
                                 fontSize: 14
                             }}>
                                 When you need a personal album.
@@ -209,7 +203,9 @@ class PricingSection extends Component {
                                         }}
                                         name="question circle outline"
                                     />
-                                    <List.Content style={{ textAlign: "left" }}>Picture Customization</List.Content>
+                                    <List.Content style={{ textAlign: "left" }}>
+                                        Picture Customization
+                                    </List.Content>
                                 </List.Item>
 
                                 <List.Item style={{ paddingBottom: 30 }}>
@@ -229,7 +225,6 @@ class PricingSection extends Component {
                                     fluid
                                     content="Subscribe"
                                     color="green"
-                                    // icon={"check"}
                                     disabled={this.subscribed}
                                 />
                             </List>
@@ -247,7 +242,6 @@ class PricingSection extends Component {
                             </Header>
 
                             <p style={{
-                                // color: "#8D021F",
                                 fontSize: 36,
                                 margin: 6,
                             }}>
@@ -265,7 +259,6 @@ class PricingSection extends Component {
 
                             <p style={{
                                 padding: "0 30px 20px 30px",
-                                // color: "#8D021F",
                                 fontSize: 14
                             }}>
                                 Albums for the family. Keep all the precious
@@ -333,7 +326,6 @@ class PricingSection extends Component {
                                     fluid
                                     content="Subscribe"
                                     color="green"
-                                    // icon={"check"}
                                     disabled={this.subscribed}
                                 />
                             </List>
