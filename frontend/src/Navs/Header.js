@@ -12,14 +12,11 @@ import {
 } from 'semantic-ui-react'
 import PropTypes from 'prop-types'
 import { Link, withRouter } from "react-router-dom"
-import auth0Client from '../constants/unused/Auth0Client';
-
 
 import * as ROUTES from '../constants/routes'
 import AccountButton from './AccountButton';
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
-// import { AuthUserContext } from '../Session';
 import SidebarAccount from './SidebarAccount';
 
 const getWidth = () => {
@@ -51,8 +48,7 @@ const HomepageHeading = ({ mobile }) => (
                 marginTop: mobile ? '0.5em' : '0em',
             }}
         />
-        {/* <Link to={ROUTES.SIGN_UP}> */}
-        <Button primary style={{ backgroundColor: "#00a226" }} size='huge' onClick={auth0Client.signIn}>
+        <Button primary style={{ backgroundColor: "#00a226" }} size='huge' as={Link} to={ROUTES.SIGN_IN}>
             Get Started
             <Icon name='right arrow' />
         </Button>

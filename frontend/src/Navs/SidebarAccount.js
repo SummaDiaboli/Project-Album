@@ -10,8 +10,7 @@ import * as ROUTES from '../constants/routes'
 class SidebarAccountBase extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.state = {}
     }
 
     componentDidMount() {
