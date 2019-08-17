@@ -2,75 +2,32 @@ import React, { Component } from 'react';
 import {
     Segment,
     Grid,
-    Card,
+    // Card,
     Menu,
     Input,
     Button,
-    Placeholder
+    // Placeholder
 } from 'semantic-ui-react'
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { withAuthorization } from '../Session';
 import { Footer, ResponsiveContainer } from '../Navs'
-import axios from 'axios'
 
 import * as ROUTES from '../constants/routes';
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
+import { AlbumList } from '../Album';
 
-class Account extends Component {
+class AccountBase extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            albums: null,
-            activeMenuItem: 'newest'
+            activeMenuItem: 'newest',
+            loading: false,
         }
-    }
-
-    /* TODO: Learn a way to fetch data from firebase instead and replace this function */
-    async componentDidMount() {
-        const albums = (await axios.get('http://localhost:8081/')).data
-        this.setState({
-            albums
-        })
     }
 
     handleMenuItemClick = (e, { name }) => this.setState({ activeMenuItem: name })
-
-    createPlaceholders = () => {
-        let placeholders = []
-
-        for (let i = 0; i < 8; i++) {
-            placeholders.push(
-                <Card key={i} raised style={{ minHeight: 150, margin: 15 }}>
-                    <Card.Content>
-                        <Card.Header>
-                            <Placeholder>
-                                <Placeholder.Header>
-                                    <Placeholder.Line length="very long" />
-                                </Placeholder.Header>
-                            </Placeholder>
-                        </Card.Header>
-                        <Card.Meta style={{ marginBottom: 15, marginTop: 10 }}>
-                            <Placeholder>
-                                <Placeholder.Line length="medium" />
-                            </Placeholder>
-                        </Card.Meta>
-                        <Card.Description>
-                            <Placeholder>
-                                <Placeholder.Paragraph>
-                                    <Placeholder.Line length="very long" />
-                                    <Placeholder.Line length="long" />
-                                    <Placeholder.Line length="long" />
-                                    <Placeholder.Line length="long" />
-                                </Placeholder.Paragraph>
-                            </Placeholder>
-                        </Card.Description>
-                    </Card.Content>
-                </Card>
-            )
-        }
-
-        return placeholders
-    }
 
     render() {
         return (
@@ -123,26 +80,9 @@ class Account extends Component {
                                     </Menu>
 
                                     <Grid.Row style={{ clear: "both", paddingTop: "10px" }} >
-                                        <Card.Group>
-                                            {
-                                                this.state.albums === null && this.createPlaceholders()
-                                            }
-                                            {/* {
-                                                this.state.albums && this.state.albums.map((album, index) => (
-                                                    <Link to={`/album/${album.id}`} key={index}>
-                                                        <Card color="green" style={{ margin: 10 }}>
-                                                            <Card.Content>
-                                                                <Card.Header>
-                                                                    {album.title}
-                                                                </Card.Header>
-                                                                <Card.Meta>{album.pictures} pictures</Card.Meta>
-                                                                <Card.Description>{album.description}</Card.Description>
-                                                            </Card.Content>
-                                                        </Card>
-                                                    </Link>
-                                                ))
-                                            } */}
-                                        </Card.Group>
+                                        {/* <Card.Group> */}
+                                        <AlbumList />
+                                        {/* </Card.Group> */}
                                     </Grid.Row>
                                 </Grid.Column>
                             </Grid>
@@ -157,5 +97,10 @@ class Account extends Component {
 }
 
 const condition = authUser => !!authUser
+const Account = compose(
+    withRouter,
+    withFirebase,
+    withAuthorization(condition),
+)(AccountBase)
 
-export default withAuthorization(condition)(Account);
+export default (Account);

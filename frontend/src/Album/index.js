@@ -1,4 +1,5 @@
-import AlbumPage from './AlbumPage'
+import AlbumDetailPage from './AlbumDetailPage'
 import NewAlbum from './NewAlbum'
+import AlbumList from './AlbumList'
 
-export { AlbumPage, NewAlbum }
+export { AlbumDetailPage, NewAlbum, AlbumList }

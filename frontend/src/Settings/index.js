@@ -3,9 +3,10 @@ import { Footer, ResponsiveContainer } from "../Navs";
 import { Segment, Tab, Header, } from 'semantic-ui-react';
 import { PasswordChangeForm } from '../PasswordChange';
 import { PasswordForgetForm } from '../PasswordForget';
-import { withAuthorization } from '../Session';
+import { withAuthorization, withEmailVerification } from '../Session';
+import { compose } from 'recompose';
 
-class UserSettings extends Component {
+class UserSettingsBase extends Component {
     handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
     render() {
@@ -43,4 +44,9 @@ class UserSettings extends Component {
 
 
 const condition = authUser => !!authUser
-export default withAuthorization(condition)(UserSettings);
+const UserSettings = compose(
+    withEmailVerification,
+    withAuthorization(condition)
+)(UserSettingsBase)
+
+export default UserSettings;

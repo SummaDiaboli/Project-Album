@@ -14,12 +14,11 @@ const AccountButton = ({ inverted }) => (
 class UserAccount extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.state = {}
     }
 
     componentDidMount() {
-        const rehydrate = JSON.parse(localStorage.getItem('savedUsername'))
+        const rehydrate = JSON.parse(localStorage.getItem('username'))
         this.setState(rehydrate)
 
         try {
@@ -45,7 +44,7 @@ class UserAccount extends Component {
     }
 
     componentWillUnmount() {
-        localStorage.setItem('savedUsername', JSON.stringify(this.state))
+        localStorage.setItem('username', JSON.stringify(this.state))
     }
 
 

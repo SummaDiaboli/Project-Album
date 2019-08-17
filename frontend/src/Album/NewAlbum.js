@@ -6,13 +6,15 @@ import {
     Segment,
     Breadcrumb
 } from 'semantic-ui-react';
-import { withAuthorization } from '../Session'
+import { withAuthorization, withEmailVerification } from '../Session'
 import { Footer, ResponsiveContainer } from '../Navs'
 
 import * as ROUTES from '../constants/routes'
 
-import axios from 'axios'
-import auth0Client from '../constants/unused/Auth0Client'
+// import axios from 'axios'
+// import auth0Client from '../constants/unused/Auth0Client'
+import { compose } from 'recompose';
+import { withFirebase } from '../Firebase';
 
 class NewAlbumBase extends Component {
     constructor(props) {
@@ -21,7 +23,8 @@ class NewAlbumBase extends Component {
         this.state = {
             disabled: false,
             title: '',
-            description: ''
+            description: '',
+            authUser: JSON.parse(localStorage.getItem('authUser'))
         }
     }
 
@@ -44,14 +47,29 @@ class NewAlbumBase extends Component {
             disabled: true
         })
 
-        await axios.post('http://localhost:8081', {
+        /* await axios.post('http://localhost:8081', {
             title: this.state.title,
             description: this.state.description
         }, {
                 headers: { 'Authorization': `Bearer ${auth0Client.getIdToken()}` }
+            }) */
+
+        const uid = this.state.authUser.uid
+        const { title, description } = this.state
+        this.props.firebase.newAlbum(uid/* , title */)
+            .set({
+                title,
+                description,
+                pictures: []
+            })
+            .then(() => {
+                // console.log("Document successfully written")
+                this.props.history.push('/account')
+            })
+            .catch(error => {
+                console.log(error)
             })
 
-        this.props.history.push('/account')
     }
 
     onChange = (event) => {
@@ -118,7 +136,12 @@ class NewAlbumBase extends Component {
     }
 }
 
-const NewAlbum = withRouter(NewAlbumBase)
-
 const condition = authUser => !!authUser
-export default withAuthorization(condition)(NewAlbum);
+const NewAlbum = compose(
+    withRouter,
+    withFirebase,
+    withEmailVerification,
+    withAuthorization(condition),
+)(NewAlbumBase)
+
+export default (NewAlbum);

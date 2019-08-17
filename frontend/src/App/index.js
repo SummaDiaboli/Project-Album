@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, withRouter } from 'react-router-dom'
+import { Route, withRouter, Switch } from 'react-router-dom'
 import { compose } from 'recompose';
 import { withFirebase } from '../Firebase';
 import { withAuthentication } from '../Session';
@@ -14,7 +14,7 @@ import Account from '../Account';
 import UserSettings from '../Settings';
 import PasswordForgetPage from '../PasswordForget';
 import PasswordChangePage from '../PasswordChange';
-import { AlbumPage, NewAlbum } from '../Album'
+import { AlbumDetailPage, NewAlbum } from '../Album'
 
 class AppBase extends Component {
   constructor(props) {
@@ -26,7 +26,7 @@ class AppBase extends Component {
 
   render() {
     return (
-      <div>
+      <Switch>
         <Route exact path={ROUTES.LANDING} component={Home} />
         <Route path={ROUTES.HOME} component={Home} />
         <Route path={ROUTES.PRICING} component={Pricing} />
@@ -34,14 +34,16 @@ class AppBase extends Component {
         <Route path={ROUTES.SIGN_UP} component={SignUp} />
 
         <Route path={ROUTES.ACCOUNT} component={Account} />
-        <Route path={ROUTES.ALBUM} component={AlbumPage} />
+        <Route path={ROUTES.ALBUM} component={AlbumDetailPage} />
         <Route path={ROUTES.NEWALBUM} component={NewAlbum} />
         <Route path={ROUTES.SETTINGS} component={UserSettings} />
         <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
         <Route path={ROUTES.PASSWORD_CHANGE} component={PasswordChangePage} />
 
+        <Route exact path={ROUTES.ALBUM} component={AlbumDetailPage} />
+
         <Route path={ROUTES.ERROR404} component={Error404} />
-      </div>
+      </Switch>
     );
   }
 

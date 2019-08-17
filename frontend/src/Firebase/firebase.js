@@ -25,6 +25,11 @@ class Firebase {
     createUserWithEmailAndPassword = (email, password) =>
         this.auth.createUserWithEmailAndPassword(email, password)
 
+    sendEmailVerification = () =>
+        this.auth.currentUser.sendEmailVerification({
+            url: process.env.REACT_APP_CONFIRMATION_EMAIL_REDIRECT,
+        })
+
     signInWithEmailAndPassword = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password)
 
@@ -45,9 +50,40 @@ class Firebase {
         this.auth.currentUser.uid
 
 
+    // *** Merge Auth and DB User API *** //
+    onAuthListener = (next, fallback) =>
+        this.auth.onAuthStateChanged(authUser => {
+            if (authUser) {
+                this.user(authUser.uid)
+                    .get()
+                    .then(snapshot => {
+                        const dbUser = snapshot.data()
+
+                        authUser = {
+                            uid: authUser.uid,
+                            email: authUser.email,
+                            emailVerified: authUser.emailVerified,
+                            providerData: authUser.providerData,
+                            ...dbUser
+                        }
+
+                        next(authUser)
+                    })
+            } else {
+                fallback()
+            }
+        })
+
+
     // *** User API ***
 
     user = (uid) => this.store.collection(`users`).doc(`${uid}`)
+
+    // *** Album API ***
+    newAlbum = (uid) => this.store.collection('albums').doc(`${uid}`).collection('userAlbums').doc()
+    getAlbum = (uid, id) => this.store.collection('albums').doc(`${uid}`).collection('userAlbums').doc(`${id}`)
+    albums = uid => this.store.collection('albums').doc(`${uid}`).collection('userAlbums')
+
 
     /* user = uid => this.db.ref(`users/${uid}`)
 
