@@ -115,7 +115,7 @@ class AlbumListBase extends Component {
                                                         No Pictures
                                                     </div>
                                                     : <div>
-                                                        {album.pictures}pictures
+                                                        {album.pictures} pictures
                                                     </div>
 
                                                 }
