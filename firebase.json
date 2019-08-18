@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "project-album",
     "public": "build",
     "ignore": [
       "firebase.json",

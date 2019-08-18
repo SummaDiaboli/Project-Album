@@ -98,17 +98,22 @@ class AlbumDetailPageBase extends Component {
                                 loading && this.createPlaceholder()
                             }
                             {
-                                album.pictures &&
-                                <div>
-                                    No Pictures
+                                album.pictures.length < 1 ?
+                                    <div>
+                                        No Pictures
                                     {/* <Input type="file" name="file" onChange={(e) => { this.updatePictures(e.target.value) }} />
                                     <Button onClick={this.onClickHandler}>Upload</Button> */}
-                                </div>
+                                    </div>
+                                    : <div>
+                                        {
+                                            album.pictures.map((picture, idx) => (
+                                                <p key={idx}>{picture}</p>
+                                            ))
+                                        }
+                                    </div>
                             }
                             {
-                                album.pictures.map((picture, idx) => (
-                                    <p key={idx}>{picture.picture}</p>
-                                ))
+
                             }
                         </Segment>
                     </Grid>
