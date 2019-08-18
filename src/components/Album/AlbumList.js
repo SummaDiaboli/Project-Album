@@ -97,6 +97,9 @@ class AlbumListBase extends Component {
                     loading && this.createPlaceholders()
                 }
                 {
+                    console.log(albums)
+                }
+                {
                     albums
                         ? (
                             albums.map((album, index) => (
@@ -106,7 +109,17 @@ class AlbumListBase extends Component {
                                             <Card.Header>
                                                 {album.title}
                                             </Card.Header>
-                                            <Card.Meta>{album.pictures} pictures</Card.Meta>
+                                            <Card.Meta>
+                                                {album.pictures.length < 1
+                                                    ? <div>
+                                                        No Pictures
+                                                    </div>
+                                                    : <div>
+                                                        {album.pictures}pictures
+                                                    </div>
+
+                                                }
+                                            </Card.Meta>
                                             <Card.Description>{album.description}</Card.Description>
                                         </Card.Content>
                                     </Card>
