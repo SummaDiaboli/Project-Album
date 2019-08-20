@@ -20,8 +20,7 @@ class PricingSection extends Component {
                         textAlign: "center"
                     }}
                 >
-                    Pick an account plan that fits with number of albums
-                    and pictures you want.
+                    Pick an account plan that fits the number of albums you want.
                 </p>
 
                 <Grid
@@ -87,7 +86,7 @@ class PricingSection extends Component {
                                         }}
                                         name="question circle outline"
                                     />
-                                    <List.Content>200 Pictures</List.Content>
+                                    <List.Content>200 Pictures/Videos</List.Content>
                                 </List.Item>
 
                                 <List.Item style={{ paddingBottom: 16 }}>
@@ -101,7 +100,7 @@ class PricingSection extends Component {
                                         name="question circle outline"
                                     />
                                     <List.Content style={{ textAlign: "left" }}>
-                                        Picture Customization
+                                        Media Frame Customization
                                     </List.Content>
                                 </List.Item>
 
@@ -190,7 +189,7 @@ class PricingSection extends Component {
                                         }}
                                         name="question circle outline"
                                     />
-                                    <List.Content>2000 Pictures</List.Content>
+                                    <List.Content>2000 Pictures/ 1000 Videos</List.Content>
                                 </List.Item>
 
                                 <List.Item style={{ paddingBottom: 16, }}>
@@ -204,7 +203,7 @@ class PricingSection extends Component {
                                         name="question circle outline"
                                     />
                                     <List.Content style={{ textAlign: "left" }}>
-                                        Picture Customization
+                                        Media Frame Customization
                                     </List.Content>
                                 </List.Item>
 
@@ -293,7 +292,7 @@ class PricingSection extends Component {
                                         }}
                                         name="question circle outline"
                                     />
-                                    <List.Content>Unlimited Pictures</List.Content>
+                                    <List.Content>Unlimited Pictures/Videos</List.Content>
                                 </List.Item>
 
                                 <List.Item style={{ paddingBottom: 16 }}>
@@ -306,7 +305,7 @@ class PricingSection extends Component {
                                         }}
                                         name="question circle outline"
                                     />
-                                    <List.Content style={{ textAlign: "left" }}>Picture Customization</List.Content>
+                                    <List.Content style={{ textAlign: "left" }}>Media Frame Customization</List.Content>
                                 </List.Item>
 
                                 <List.Item style={{ paddingBottom: 30 }}>

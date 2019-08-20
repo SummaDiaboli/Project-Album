@@ -55,14 +55,14 @@ class AccountBase extends Component {
                                             onClick={this.handleMenuItemClick}
                                         />
                                         <Menu.Item
-                                            name='mostPictures'
-                                            active={this.state.activeMenuItem === 'mostPictures'}
+                                            name='mostFiles'
+                                            active={this.state.activeMenuItem === 'mostFiles'}
                                             color="green"
                                             onClick={this.handleMenuItemClick}
                                         />
                                         <Menu.Item
-                                            name='fewestPictures'
-                                            active={this.state.activeMenuItem === 'fewestPictures'}
+                                            name='fewestFiles'
+                                            active={this.state.activeMenuItem === 'fewestFiles'}
                                             color="green"
                                             onClick={this.handleMenuItemClick}
                                         />

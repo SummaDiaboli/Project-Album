@@ -35,7 +35,7 @@ class FeaturesSection extends Component {
 
                         <Grid.Column>
                             <Header as="h3">
-                                Picture Templates
+                                Frame Templates
                             </Header>
 
                             <p style={{ color: "grey", fontSize: 16 }}>

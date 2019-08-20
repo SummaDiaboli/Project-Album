@@ -107,12 +107,12 @@ class AlbumListBase extends Component {
                                                 {album.title}
                                             </Card.Header>
                                             <Card.Meta>
-                                                {album.pictures.length === 1
+                                                {album.files.length === 1
                                                     ? <div>
-                                                        1 Picture
+                                                        1 File
                                                     </div>
                                                     : <div>
-                                                        {album.pictures.length} pictures
+                                                        {album.files.length} Files
                                                     </div>
 
                                                 }

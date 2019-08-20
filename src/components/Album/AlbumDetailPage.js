@@ -71,7 +71,7 @@ class AlbumDetailPageBase extends Component {
         })
 
         //* The code below checks the firebase firestore for instances
-        //* of a picture with the same filename and evaluates
+        //* of a file with the same filename and evaluates
         //* If true then the process will not go through
         //* If false the file will be uploaded
 
@@ -102,7 +102,7 @@ class AlbumDetailPageBase extends Component {
                 this.setState({
                     isUploading: true
                 })
-                this.props.firebase
+                await this.props.firebase
                     .uploadFile(uid, albumId, file, files[index])
                     .then((snapshot) => {
                         console.log(snapshot.ref.fullPath)
@@ -275,7 +275,7 @@ class AlbumDetailPageBase extends Component {
                                 loading && this.createPlaceholder()
                             } */}
                             {
-                                album.pictures.length < 1
+                                album.files.length < 1
                                     ? <div>
                                         <Message style={{ width: "20em" }}>
                                             You have no pictures or videos in this album
@@ -285,15 +285,13 @@ class AlbumDetailPageBase extends Component {
                                     : <div>
                                         {
                                             <div>
-                                                {album.pictures.map((picture, idx) => (
-                                                    <p key={idx}>{picture}</p>
+                                                {album.files.map((file, idx) => (
+                                                    <p key={idx}>{file}</p>
                                                 ))}
                                                 <this.FilePicker />
 
                                             </div>
                                         }
-                                        {/* <Input type="file" name="file" onChange={(e) => { this.updatePictures(e.target.value) }} />
-                                            <Button onClick={this.onClickHandler}>Upload</Button> */}
                                     </div>
                             }
                         </Segment>

@@ -58,7 +58,7 @@ class NewAlbumBase extends Component {
             .set({
                 title,
                 description,
-                pictures: []
+                files: []
             })
             .then(() => {
                 // console.log("Document successfully written")

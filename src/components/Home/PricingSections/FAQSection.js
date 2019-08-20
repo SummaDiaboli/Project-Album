@@ -99,7 +99,7 @@ class FAQSection extends Component {
 
                         <Container style={{ paddingTop: 30, paddingBottom: 30, fontSize: 16 }}>
                             <Header as="h3">
-                                Can I import pictures from Google Drive or iCloud?
+                                Can I import pictures and videos from Google Drive or iCloud?
                             </Header>
 
                             <p style={{ color: "grey" }}>
