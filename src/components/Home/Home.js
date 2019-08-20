@@ -92,7 +92,7 @@ export class HomeComponent extends Component {
                         <Grid.Row>
                             <Grid.Column textAlign='center'>
                                 <Link to={ROUTES.ERROR404}>
-                                    <Button size='huge'>Check it out</Button>
+                                    <Button positive size='huge'>Check it out</Button>
                                 </Link>
                             </Grid.Column>
                         </Grid.Row>
@@ -134,7 +134,7 @@ export class HomeComponent extends Component {
                             whenever we need them.
                         </p>
                         <Link to="/error404/">
-                            <Button size="large">
+                            <Button positive size="large">
                                 Read More
                             </Button>
                         </Link>
@@ -158,7 +158,7 @@ export class HomeComponent extends Component {
                             from the picture sizes to the shapes to the frames
                         </p>
                         <Link to="/error404/">
-                            <Button size='large'>
+                            <Button positive size='large'>
                                 I'm Still Quite Interested
                             </Button>
                         </Link>
