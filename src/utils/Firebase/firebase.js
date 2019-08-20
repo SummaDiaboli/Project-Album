@@ -1,6 +1,7 @@
 import app from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 
 const config = {
     apiKey: "AIzaSyDm3RIC26l9ZwxxucR4nN3fq3PdNTvWZJM",
@@ -18,9 +19,12 @@ class Firebase {
 
         this.auth = app.auth()
         this.store = app.firestore()
+        this.storage = app.storage()
+
+        this.exposeapp = app.firestore
     }
 
-    // *** Auth API ***
+    // *** Auth API *** //
 
     createUserWithEmailAndPassword = (email, password) =>
         this.auth.createUserWithEmailAndPassword(email, password)
@@ -75,13 +79,15 @@ class Firebase {
         })
 
 
-    // *** User API ***
+    // *** User API *** //
 
     user = (uid) => this.store.collection(`users`).doc(`${uid}`)
 
     // *** Album API ***
     newAlbum = (uid) => this.store.collection('albums').doc(`${uid}`).collection('userAlbums').doc()
+
     getAlbum = (uid, id) => this.store.collection('albums').doc(`${uid}`).collection('userAlbums').doc(`${id}`)
+
     albums = uid => this.store.collection('albums').doc(`${uid}`).collection('userAlbums')
 
 
@@ -89,6 +95,21 @@ class Firebase {
 
     users = () => this.db.ref('users') */
 
+    // *** Storage API *** //
+
+    getStorageRef = (uid, albumTitle, filename, file) => this.storage.ref().child(`${uid}/${albumTitle}/${filename}/${file}`)
+
+    getMetaData = (uid, albumTitle, filename, file) => this.storage.ref(`${uid}/${albumTitle}/${filename}`).child(`${file}`).getMetadata()
+
+    uploadFile = (uid, albumTitle, filename, file) => this.storage.ref(`${uid}/${albumTitle}/${filename}`).put(file)
+
+    downloadURL = (uid, albumTitle, filename, file) => this.storage.ref(`${uid}/${albumTitle}/${filename}`).child(`${file}`).getDownloadURL()
+
+    updateFilesDatabase = url => this.app.firebase.firestore.FieldValue.arrayUnion(url)
+
+    // *** updatePics app
+
+    updateFiles = url => this.exposeapp.FieldValue.arrayUnion(url)
 }
 
 export default Firebase

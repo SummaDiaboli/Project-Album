@@ -26,7 +26,7 @@ class AlbumListBase extends Component {
 
         const uid = this.state.authUser.uid
 
-        this.props.firebase.albums(uid)
+        await this.props.firebase.albums(uid)
             .get()
             .then(querysnapshot => {
                 if (!querysnapshot.empty) {
