@@ -5,10 +5,11 @@ import {
     Header,
     Grid,
     Breadcrumb,
-    Placeholder,
+    // Placeholder,
     Message,
     Form,
     Button,
+    Card,
 } from "semantic-ui-react";
 import { Link } from 'react-router-dom'
 import { Footer, ResponsiveContainer } from "../Navs";
@@ -17,6 +18,7 @@ import * as ROUTES from '../../utils/routes'
 import { compose } from 'recompose';
 import { withFirebase } from '../../utils/Firebase';
 import { withAuthorization, withEmailVerification } from '../../utils/Session';
+import AlbumFileCard from './AlbumFileCard';
 
 class AlbumDetailPageBase extends Component {
     constructor(props) {
@@ -27,19 +29,17 @@ class AlbumDetailPageBase extends Component {
             loading: false,
             filesSelected: false,
             isUploading: false,
-            alreadyInStorage: false,
-            fileInStorageAlert: false,
             files: [],
             filenames: []
         }
     }
 
-    fileInputRef = React.createRef()
-
     componentDidMount() {
         this.getFiles()
     }
 
+    // * Fetches the files from the firestore to "refresh"
+    // * the page
     getFiles = () => {
         this.setState({ loading: true })
 
@@ -80,7 +80,7 @@ class AlbumDetailPageBase extends Component {
                 isDisabled: true
             })
 
-            var exists = false
+            let exists = false
             await this.props.firebase
                 .getAlbum(uid, albumId)
                 .collection("filePaths")
@@ -129,6 +129,9 @@ class AlbumDetailPageBase extends Component {
         })
     }
 
+    // * Adds the full path to the file from firebase storage to
+    // * a collection in the album's document to be used later
+    // * for checking for duplicates
     addPathToDatabase = (uid, albumid, snapshot) => {
         this.props.firebase
             .getAlbum(uid, albumid)
@@ -142,6 +145,8 @@ class AlbumDetailPageBase extends Component {
             })
     }
 
+    // * Gets the URL from the snapshot and then adds that to
+    // * the album's firestore document in the files field
     addDownloadURLToDatabase = (snapshot, uid, albumid) => {
         snapshot.ref.getDownloadURL()
             .then(url => {
@@ -167,19 +172,8 @@ class AlbumDetailPageBase extends Component {
             })
     }
 
-
-    onFormSubmit = e => {
-        e.preventDefault()
-        this.uploadFiles()
-    }
-
-    fileChange = e => {
-        this.setState({ files: e.target.files, filesSelected: true }, () => {
-            console.log("File chosen -->", this.state.files)
-            this.getFileNames()
-        })
-    }
-
+    // * Gets the selected files from the state
+    // * and retrieves their names
     getFileNames = () => {
         const filenames = []
         Array.from(this.state.files).forEach(
@@ -193,16 +187,36 @@ class AlbumDetailPageBase extends Component {
         })
     }
 
+    fileInputRef = React.createRef()
+
+    onFormSubmit = e => {
+        e.preventDefault()
+        this.uploadFiles()
+    }
+
+    // * Adds selected files to state and then gets the filenames
+    fileChange = e => {
+        this.setState({ files: e.target.files, filesSelected: true }, () => {
+            console.log("File chosen -->", this.state.files)
+            this.getFileNames()
+        })
+    }
+
+    /*
+    * A form that allows the user to select files
+    * from their system and upload it to firebase
+    */
     FilePicker = () => (
         <>
             <Form onSubmit={this.onFormSubmit}>
                 <Form.Field>
                     <Button
-                        content="Choose file"
-                        labelPosition="left"
-                        icon="file"
+                        // content="Choose file"
+                        // labelPosition="left"
+                        type="button"
+                        icon="add"
                         onClick={() => this.fileInputRef.current.click()}
-                        positive={this.state.filesSelected}
+                        positive={this.state.files.length !== 0}
                     />
                     <input
                         multiple
@@ -211,20 +225,20 @@ class AlbumDetailPageBase extends Component {
                         hidden
                         onChange={this.fileChange}
                     />
+                    <Button
+                        type="submit"
+                        positive
+                        disabled={this.state.isDisabled}
+                        loading={this.state.isUploading}
+                    >
+                        Upload
+                    </Button>
                 </Form.Field>
-                <Button
-                    type="submit"
-                    positive
-                    disabled={this.state.isDisabled}
-                    loading={this.state.isUploading}
-                >
-                    Upload
-                </Button>
             </Form>
         </>
     )
 
-    createPlaceholder = () => (
+    /* createPlaceholder = () => (
         <Placeholder>
             <Placeholder.Header>
                 <Placeholder.Line length="very long" />
@@ -234,7 +248,7 @@ class AlbumDetailPageBase extends Component {
             </Placeholder.Paragraph>
             <Placeholder.Image />
         </Placeholder>
-    )
+    ) */
 
     render() {
         const { album } = this.state
@@ -254,7 +268,9 @@ class AlbumDetailPageBase extends Component {
                 <Segment vertical style={{ minHeight: 700 }}>
                     <Segment style={{ marginLeft: 100, marginRight: 100 }}>
                         <Breadcrumb>
-                            <Link to={ROUTES.ACCOUNT}>Albums</Link>
+                            <Link to={ROUTES.ACCOUNT} style={{ color: "#21ba45" }}>
+                                Albums
+                            </Link>
                             <Breadcrumb.Divider icon="right angle" />
                             <Breadcrumb.Section active>{album.title}</Breadcrumb.Section>
                         </Breadcrumb>
@@ -265,35 +281,36 @@ class AlbumDetailPageBase extends Component {
                         celled="internally"
                         style={{ minHeight: 700 }}
                     >
-                        <Segment style={{ width: "100%", }}>
-                            <Header as="h2">{album.title}
+                        <Segment style={{ width: "100%", overflow: "auto", whiteSpace: "no-wrap" }}>
+                            <Header as="h2">
+                                Title: {album.title}
+                                <div style={{ float: "right" }}>
+                                    <this.FilePicker />
+                                </div>
+
                                 <Header.Subheader>
-                                    {album.description}
+                                    Description: {album.description}
                                 </Header.Subheader>
                             </Header>
-                            {/* {
-                                loading && this.createPlaceholder()
-                            } */}
-                            {
-                                album.files.length < 1
-                                    ? <div>
-                                        <Message style={{ width: "20em" }}>
-                                            You have no pictures or videos in this album
-                                        </Message>
-                                        <this.FilePicker />
-                                    </div>
-                                    : <div>
-                                        {
-                                            <div>
-                                                {album.files.map((file, idx) => (
-                                                    <p key={idx}>{file}</p>
-                                                ))}
-                                                <this.FilePicker />
+                            <Card.Group>
+                                {
+                                    album.files.length < 1
+                                        ? <div>
 
-                                            </div>
-                                        }
-                                    </div>
-                            }
+                                            <Message style={{ width: "25em", marginTop: "2em" }}>
+                                                You have no pictures or videos in this album
+                                            </Message>
+                                        </div>
+                                        : <div>
+                                            {
+                                                album.files.map((file, idx) => (
+                                                    < AlbumFileCard url={file} key={idx} />
+                                                ))
+
+                                            }
+                                        </div>
+                                }
+                            </Card.Group>
                         </Segment>
                     </Grid>
                 </Segment>

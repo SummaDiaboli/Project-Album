@@ -87,9 +87,9 @@ class NewAlbumBase extends Component {
                     <Segment style={{ margin: 10 }}>
                         <Breadcrumb>
                             {/* <Breadcrumb.Section href={ROUTES.ACCOUNT}> */}
-                            <Link to={ROUTES.ACCOUNT}>
+                            <Link to={ROUTES.ACCOUNT} style={{color: "#21ba45"}}>
                                 Albums
-                                </Link>
+                            </Link>
                             {/* </Breadcrumb.Section> */}
                             <Breadcrumb.Divider icon="right angle" />
                             <Breadcrumb.Section active>New Album</Breadcrumb.Section>
@@ -120,7 +120,7 @@ class NewAlbumBase extends Component {
                                 primary
                                 disabled={this.state.disabled || isInvalid}
                                 content="Submit"
-                                style={{ backgroundColor: "#21ba45," }}
+                                positive
                                 onClick={() => { this.submit() }}
                             />
                         </Form>
