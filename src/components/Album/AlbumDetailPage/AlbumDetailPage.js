@@ -5,26 +5,28 @@ import {
     Header,
     Grid,
     Breadcrumb,
-    // Placeholder,
-    Message,
     Form,
     Button,
     Card,
+    Icon,
 } from "semantic-ui-react";
 import { Link } from 'react-router-dom'
-import { Footer, ResponsiveContainer } from "../Navs";
-import * as ROUTES from '../../utils/routes'
-
+import { Footer, ResponsiveContainer } from "../../Navs";
 import { compose } from 'recompose';
-import { withFirebase } from '../../utils/Firebase';
-import { withAuthorization, withEmailVerification } from '../../utils/Session';
+import { withFirebase } from '../../../utils/Firebase';
+import { withAuthorization, withEmailVerification } from '../../../utils/Session';
+
 import AlbumFileCard from './AlbumFileCard';
+import * as ROUTES from '../../../utils/routes'
+import BottomPagination from './BottomPagination';
+
 
 class AlbumDetailPageBase extends Component {
     constructor(props) {
         super(props);
         this.state = {
             authUser: JSON.parse(localStorage.getItem('authUser')),
+            activePage: 1,
             album: null,
             loading: false,
             filesSelected: false,
@@ -136,7 +138,9 @@ class AlbumDetailPageBase extends Component {
         this.props.firebase
             .getAlbum(uid, albumid)
             .collection("filePaths")
-            .add({ path: snapshot.ref.fullPath })
+            .add({
+                path: snapshot.ref.fullPath,
+            })
             .then(() => {
                 console.log("Path added to database")
             })
@@ -211,8 +215,6 @@ class AlbumDetailPageBase extends Component {
             <Form onSubmit={this.onFormSubmit}>
                 <Form.Field>
                     <Button
-                        // content="Choose file"
-                        // labelPosition="left"
                         type="button"
                         icon="add"
                         onClick={() => this.fileInputRef.current.click()}
@@ -238,20 +240,17 @@ class AlbumDetailPageBase extends Component {
         </>
     )
 
-    /* createPlaceholder = () => (
-        <Placeholder>
-            <Placeholder.Header>
-                <Placeholder.Line length="very long" />
-            </Placeholder.Header>
-            <Placeholder.Paragraph>
-                <Placeholder.Line length="very long" />
-            </Placeholder.Paragraph>
-            <Placeholder.Image />
-        </Placeholder>
-    ) */
+    handlePaginationChange = (e, { activePage }) => {
+        this.setState({
+            activePage
+        })
+
+        //* Scroll to the top of the page after page is changed
+        window.scrollTo(0, 0)
+    }
 
     render() {
-        const { album } = this.state
+        const { album, activePage } = this.state
         if (album === null) {
             return (
                 <Grid verticalAlign="middle" textAlign="center" style={{ height: "100vh" }}>
@@ -280,39 +279,58 @@ class AlbumDetailPageBase extends Component {
                         container
                         celled="internally"
                         style={{ minHeight: 700 }}
+                        centered
                     >
                         <Segment style={{ width: "100%", overflow: "auto", whiteSpace: "no-wrap" }}>
                             <Header as="h2">
-                                Title: {album.title}
+                                {album.title}
                                 <div style={{ float: "right" }}>
                                     <this.FilePicker />
                                 </div>
 
-                                <Header.Subheader>
-                                    Description: {album.description}
+                                <Header.Subheader style={{ color: "gray" }}>
+                                    {album.description}
                                 </Header.Subheader>
                             </Header>
-                            <Card.Group>
+                            <Card.Group style={{ justifyContent: "center" }}>
                                 {
                                     album.files.length < 1
-                                        ? <div>
+                                        ? <Grid.Column textAlign="center">
+                                            <Segment placeholder style={{
+                                                marginTop: "3em",
+                                                padding: "5em",
+                                                width: "50em",
+                                                textAlign: "center",
+                                                fontSize: "18px"
+                                            }}>
+                                                <Header>
+                                                    <Icon name="picture" />
 
-                                            <Message style={{ width: "25em", marginTop: "2em" }}>
-                                                You have no pictures or videos in this album
-                                            </Message>
-                                        </div>
-                                        : <div>
+                                                    You have no pictures or videos in this album
+                                                </Header>
+                                            </Segment>
+
+                                        </Grid.Column>
+                                        : <Grid.Column style={{ paddingTop: "3em" }}>
                                             {
-                                                album.files.map((file, idx) => (
-                                                    < AlbumFileCard url={file} key={idx} />
+                                                album.files.slice((15 * (activePage - 1)), (15 * activePage)).map((file, idx) => (
+                                                    <AlbumFileCard url={file} key={idx} />
                                                 ))
 
                                             }
-                                        </div>
+                                        </Grid.Column>
                                 }
                             </Card.Group>
+                            <Grid.Column verticalAlign="bottom" style={{ paddingTop: "3em" }}>
+                                <BottomPagination
+                                    activePage={activePage}
+                                    album={album.files}
+                                    handlepageChange={this.handlePaginationChange}
+                                />
+                            </Grid.Column>
                         </Segment>
                     </Grid>
+
                 </Segment>
                 <Footer />
             </ResponsiveContainer>

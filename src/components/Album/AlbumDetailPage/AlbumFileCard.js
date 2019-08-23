@@ -18,12 +18,12 @@ function AlbumFileCard(props) {
             <Card
                 style={{
                     display: "inline-block",
-                    padding: "10px",
+                    padding: "5px",
                     margin: "1em"
                 }}
                 raised
             >
-                <Image src={file} />
+                <Image rounded src={file} />
             </Card>
         )
     } else {
@@ -35,7 +35,7 @@ function AlbumFileCard(props) {
                     margin: "1em"
                 }}
             >
-                <Embed url={file} />
+                <Embed active url={file} />
             </Card>
         )
     }
