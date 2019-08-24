@@ -13,12 +13,13 @@ import {
 import { Link } from 'react-router-dom'
 import { Footer, ResponsiveContainer } from "../../Navs";
 import { compose } from 'recompose';
+
 import { withFirebase } from '../../../utils/Firebase';
 import { withAuthorization, withEmailVerification } from '../../../utils/Session';
 
 import AlbumFileCard from './AlbumFileCard';
-import * as ROUTES from '../../../utils/routes'
 import BottomPagination from './BottomPagination';
+import * as ROUTES from '../../../utils/routes'
 
 
 class AlbumDetailPageBase extends Component {
